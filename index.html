@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PackWise</title>
+<style>
+:root{
+  --bg:#0D1117;--bg2:#161B24;--bg3:#1E2530;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --text:#F0EEE8;--text2:#9BA3B0;--text3:#5C6470;
+  --accent:#F0C060;--accent2:#E8885A;
+  --green:#5BB88A;--blue:#5B9BD5;--purple:#9B7FD4;--red:#D45B5B;
+  --r:16px;--r-sm:10px;--shadow:0 8px 40px rgba(0,0,0,0.5);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Georgia,serif;min-height:100vh;overflow-x:hidden}
+button,input,select{font-family:inherit}
+.page{display:none;min-height:100vh}.page.active{display:block}
+
+/* HOME */
+#page-home{position:relative;overflow:hidden}
+#page-home::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 120% 80% at 80% 0%,rgba(240,192,96,.07) 0%,transparent 55%),radial-gradient(ellipse 80% 60% at 0% 100%,rgba(91,155,213,.07) 0%,transparent 50%);pointer-events:none;z-index:0}
+.home-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 20px 80px}
+.nav{display:flex;align-items:center;padding:28px 0 0}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 0 20px rgba(240,192,96,.3)}
+.logo-text{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-.02em}.logo-text span{color:var(--accent)}
+.hero{padding:70px 0 50px;max-width:700px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(240,192,96,.1);border:1px solid rgba(240,192,96,.25);border-radius:20px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:28px;font-family:-apple-system,sans-serif}
+.hero-title{font-size:clamp(40px,7vw,72px);line-height:1.0;font-weight:400;margin-bottom:20px;letter-spacing:-.02em}
+.hero-title em{font-style:italic;color:var(--accent);display:block}
+.hero-sub{font-size:17px;color:var(--text2);line-height:1.6;max-width:520px;font-family:-apple-system,sans-serif;font-weight:300}
+.section-eyebrow{font-family:-apple-system,sans-serif;font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:18px}
+.trip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:60px}
+.trip-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all .25s ease;overflow:hidden;position:relative;text-align:left;animation:fadeUp .4s ease both}
+.trip-card:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:var(--shadow)}
+.trip-card:hover .card-glow{opacity:1}
+.card-glow{position:absolute;inset:0;opacity:0;transition:opacity .3s;border-radius:var(--r);pointer-events:none}
+.card-visual{height:120px;display:flex;align-items:center;justify-content:center;font-size:48px}
+.card-body{padding:16px 18px 18px}
+.card-name{font-size:16px;font-weight:700;color:var(--text);margin-bottom:5px}
+.card-desc{font-family:-apple-system,sans-serif;font-size:12px;color:var(--text2);line-height:1.5;font-weight:300}
+.card-arrow{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:-apple-system,sans-serif;font-size:12px;font-weight:600;color:var(--text3);transition:color .2s}
+.trip-card:hover .card-arrow{color:var(--accent)}
+.theme-beach .card-visual{background:linear-gradient(160deg,#1A3A5C,#0D5C8A 50%,#1A6B6B)}.theme-beach .card-glow{background:radial-gradient(ellipse at 50% 0%,rgba(26,107,138,.25),transparent 70%)}
+.theme-city .card-visual{background:linear-gradient(160deg,#1A1A2E,#16213E 50%,#0F3460)}.theme-city .card-glow{background:radial-gradient(ellipse at 50% 0%,rgba(91,155,213,.2),transparent 70%)}
+.theme-hike .card-visual{background:linear-gradient(160deg,#1A2E1A,#2D5A27 50%,#4A7C59)}.theme-hike .card-glow{background:radial-gradient(ellipse at 50% 0%,rgba(91,184,138,.2),transparent 70%)}
+.theme-ski .card-visual{background:linear-gradient(160deg,#1A2A3A,#243B55 50%,#E8EEF4)}.theme-ski .card-glow{background:radial-gradient(ellipse at 50% 0%,rgba(200,220,240,.15),transparent 70%)}
+.theme-cruise .card-visual{background:linear-gradient(160deg,#0A1628,#1A3A5C 50%,#0066CC)}.theme-cruise .card-glow{background:radial-gradient(ellipse at 50% 0%,rgba(0,102,204,.2),transparent 70%)}
+.theme-safari .card-visual{background:linear-gradient(160deg,#2E1A0A,#8B5E3C 50%,#C4852A)}.theme-safari .card-glow{background:radial-gradient(ellipse at 50% 0%,rgba(196,133,42,.2),transparent 70%)}
+.theme-backpack .card-visual{background:linear-gradient(160deg,#1A1A1A,#2D2D2D 50%,#4A3728)}.theme-backpack .card-glow{background:radial-gradient(ellipse at 50% 0%,rgba(232,136,90,.2),transparent 70%)}
+.theme-wellness .card-visual{background:linear-gradient(160deg,#1A1A2E,#2D1A3A 50%,#5C3A6B)}.theme-wellness .card-glow{background:radial-gradient(ellipse at 50% 0%,rgba(155,127,212,.2),transparent 70%)}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:36px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:60px}
+.feature-icon{font-size:20px;margin-bottom:8px}.feature-title{font-size:13px;font-weight:700;margin-bottom:5px}
+.feature-desc{font-family:-apple-system,sans-serif;font-size:12px;color:var(--text2);line-height:1.5;font-weight:300}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.trip-card:nth-child(1){animation-delay:.05s}.trip-card:nth-child(2){animation-delay:.10s}.trip-card:nth-child(3){animation-delay:.15s}.trip-card:nth-child(4){animation-delay:.20s}
+.trip-card:nth-child(5){animation-delay:.25s}.trip-card:nth-child(6){animation-delay:.30s}.trip-card:nth-child(7){animation-delay:.35s}.trip-card:nth-child(8){animation-delay:.40s}
+
+/* LIST PAGE */
+#page-list{background:var(--bg)}
+.list-layout{max-width:1100px;margin:0 auto;padding:0 16px 60px}
+.topbar{display:flex;align-items:center;gap:14px;padding:20px 0 24px;border-bottom:1px solid var(--border);margin-bottom:24px;flex-wrap:wrap}
+.back-btn{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 14px;color:var(--text2);font-family:-apple-system,sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;flex-shrink:0}
+.back-btn:hover{color:var(--text);border-color:var(--border2)}
+.trip-hero-info{flex:1;min-width:0}
+.trip-hero-title{font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+.trip-hero-meta{font-family:-apple-system,sans-serif;font-size:12px;color:var(--text2);margin-top:3px}
+.tabs{display:flex;gap:4px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);padding:4px;flex-shrink:0}
+.tab{padding:8px 16px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:-apple-system,sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
+.tab.active{background:var(--bg3);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.tab:hover:not(.active){color:var(--text)}
+.content-cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* SUMMARY CARD */
+.trip-summary-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:18px}
+.trip-tags-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.pill{padding:4px 11px;border-radius:20px;font-family:-apple-system,sans-serif;font-size:11px;font-weight:600;letter-spacing:.04em}
+.pill-accent{background:rgba(240,192,96,.15);color:var(--accent);border:1px solid rgba(240,192,96,.25)}
+.pill-blue{background:rgba(91,155,213,.15);color:var(--blue);border:1px solid rgba(91,155,213,.25)}
+.pill-green{background:rgba(91,184,138,.15);color:var(--green);border:1px solid rgba(91,184,138,.25)}
+.pill-orange{background:rgba(232,136,90,.15);color:var(--accent2);border:1px solid rgba(232,136,90,.25)}
+.pill-purple{background:rgba(155,127,212,.15);color:var(--purple);border:1px solid rgba(155,127,212,.25)}
+.progress-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+.progress-label{font-family:-apple-system,sans-serif;font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.08em}
+.progress-nums{font-family:-apple-system,sans-serif;font-size:13px;color:var(--text2)}
+.progress-nums b{color:var(--accent);font-size:17px}
+.pbar{height:6px;background:var(--bg3);border-radius:6px;overflow:hidden}
+.pbar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:6px;transition:width .4s cubic-bezier(.34,1.56,.64,1)}
+.chips-label{font-family:-apple-system,sans-serif;font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin:14px 0 8px}
+.chips-row{display:flex;flex-wrap:wrap;gap:6px}
+.chip-act{padding:6px 12px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:-apple-system,sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;user-select:none}
+.chip-act:hover{border-color:var(--accent);color:var(--accent)}.chip-act.on{background:rgba(240,192,96,.12);border-color:var(--accent);color:var(--accent)}
+.add-row{display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap}
+.add-input{flex:1;min-width:0;padding:10px 13px;border-radius:var(--r-sm);border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-family:-apple-system,sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+.add-input::placeholder{color:var(--text3)}.add-input:focus{border-color:var(--accent)}
+.add-select{padding:10px 8px;border-radius:var(--r-sm);border:1px solid var(--border2);background:var(--bg2);color:var(--text2);font-family:-apple-system,sans-serif;font-size:13px;outline:none;cursor:pointer}
+.add-select option{background:var(--bg2)}
+.add-go{padding:10px 15px;border-radius:var(--r-sm);border:none;background:var(--accent);color:#1A1200;font-family:-apple-system,sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.add-go:hover{background:#f5cc70;transform:translateY(-1px)}
+
+/* BAG LEGEND */
+.bag-legend-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:14px;padding:10px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm)}
+.bag-legend-label{font-family:-apple-system,sans-serif;font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.bag-legend-item{display:flex;align-items:center;gap:6px;font-family:-apple-system,sans-serif;font-size:12px;color:var(--text2)}
+.leg-swatch{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.leg-checked{background:rgba(91,184,138,.2);border:1.5px solid var(--green);color:var(--green)}
+.leg-carry{background:rgba(91,155,213,.2);border:1.5px solid var(--blue);color:var(--blue)}
+.leg-personal{background:rgba(155,127,212,.2);border:1.5px solid var(--purple);color:var(--purple)}
+
+/* PACK SECTIONS */
+.pack-section{margin-bottom:9px}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);cursor:pointer;user-select:none;transition:border-color .2s}
+.sec-hdr:hover{border-color:var(--border2)}
+.sec-hdr-left{display:flex;align-items:center;gap:9px}
+.sec-icon{font-size:15px}.sec-name{font-size:14px;font-weight:700}
+.sec-count{font-family:-apple-system,sans-serif;font-size:11px;color:var(--text3);background:var(--bg3);padding:2px 8px;border-radius:10px}
+.sec-chevron{color:var(--text3);font-size:11px;transition:transform .2s;font-family:-apple-system,sans-serif}.sec-chevron.open{transform:rotate(90deg)}
+.sec-body{margin-top:4px;display:flex;flex-direction:column;gap:5px}
+
+/* PACK ITEMS */
+.pack-item{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 11px;transition:all .18s ease;animation:fadeUp .2s ease both}
+.pack-item:hover{border-color:var(--border2);box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.pack-item.done{opacity:.4}.pack-item.done .pack-name{text-decoration:line-through;color:var(--text3)}
+.pack-item.is-custom{border-left:2px solid var(--accent2)}
+.check-box{width:20px;height:20px;border-radius:6px;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:all .18s}
+.pack-item.done .check-box{background:var(--green);border-color:var(--green)}
+.check-inner{color:#0A2010;font-size:11px;font-weight:700;opacity:0;transform:scale(.4);transition:all .18s cubic-bezier(.34,1.56,.64,1)}
+.pack-item.done .check-inner{opacity:1;transform:scale(1)}
+.pack-content{flex:1;min-width:0}
+.pack-name{font-family:-apple-system,sans-serif;font-size:13px;font-weight:500;color:var(--text);transition:all .18s}
+.pack-note{font-family:-apple-system,sans-serif;font-size:11px;color:var(--text3);margin-top:2px}
+.pack-name-input{background:var(--bg3);border:1px solid var(--accent);border-radius:5px;color:var(--text);font-family:-apple-system,sans-serif;font-size:13px;font-weight:500;padding:2px 7px;outline:none;width:100%}
+
+/* BAG CHECKMARKS */
+.bag-checks{display:flex;gap:3px;flex-shrink:0;align-items:center}
+.bag-chk{width:22px;height:22px;border-radius:5px;border:1.5px solid var(--border2);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;font-weight:700;transition:all .15s;flex-shrink:0;color:transparent;line-height:1}
+.bag-chk:hover{border-color:var(--text3)}
+.bag-chk.on-checked{background:rgba(91,184,138,.2);border-color:var(--green);color:var(--green)}
+.bag-chk.on-carry{background:rgba(91,155,213,.2);border-color:var(--blue);color:var(--blue)}
+.bag-chk.on-personal{background:rgba(155,127,212,.2);border-color:var(--purple);color:var(--purple)}
+.edit-btn{background:none;border:none;cursor:pointer;color:var(--text3);font-size:13px;padding:0 2px;transition:color .2s;flex-shrink:0;line-height:1}.edit-btn:hover{color:var(--accent)}
+.del-btn{background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px;padding:0 2px;transition:color .2s;flex-shrink:0;line-height:1}.del-btn:hover{color:var(--red)}
+
+/* SKIP */
+.skip-section{background:rgba(91,184,138,.05);border:1px solid rgba(91,184,138,.15);border-radius:var(--r);padding:16px}
+.skip-title{font-size:14px;font-weight:700;color:var(--green);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.skip-row{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px solid rgba(91,184,138,.1);font-family:-apple-system,sans-serif;font-size:12px}
+.skip-row:last-child{border-bottom:none}
+.skip-x{color:var(--green);font-weight:700;font-size:10px;margin-top:2px;flex-shrink:0}
+.skip-txt{color:var(--text2);font-weight:300}.skip-txt strong{font-weight:600;color:var(--text)}
+
+/* BAG SUMMARY TAB */
+.bag-view-intro{font-family:-apple-system,sans-serif;font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:18px;padding:13px 15px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm)}
+.bag-view-cols{display:flex;flex-direction:column;gap:14px}
+.bag-view-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.bag-view-hdr{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px}
+.bag-view-title{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:700}
+.bag-view-badge{font-family:-apple-system,sans-serif;font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px}
+.badge-checked{background:rgba(91,184,138,.15);color:var(--green);border:1px solid rgba(91,184,138,.3)}
+.badge-carry{background:rgba(91,155,213,.15);color:var(--blue);border:1px solid rgba(91,155,213,.3)}
+.badge-personal{background:rgba(155,127,212,.15);color:var(--purple);border:1px solid rgba(155,127,212,.3)}
+.bag-view-limit{font-family:-apple-system,sans-serif;font-size:11px;color:var(--text3)}
+.bag-view-body{padding:10px 14px}
+.bag-view-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-family:-apple-system,sans-serif;font-size:13px}
+.bag-view-item:last-child{border-bottom:none}
+.bag-view-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.dot-checked{background:var(--green)}.dot-carry{background:var(--blue)}.dot-personal{background:var(--purple)}
+.bag-view-name{flex:1;color:var(--text)}.bag-view-sec{font-size:10px;color:var(--text3)}
+.bag-view-empty{font-family:-apple-system,sans-serif;font-size:12px;color:var(--text3);text-align:center;padding:18px 0}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:#2A2E38;border:1px solid var(--border2);color:var(--text);padding:11px 20px;border-radius:12px;font-family:-apple-system,sans-serif;font-size:13px;font-weight:500;z-index:999;transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;box-shadow:var(--shadow)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* MOBILE */
+@media(max-width:640px){
+  .home-inner{padding:0 14px 60px}.hero{padding:44px 0 36px}.hero-title{font-size:36px}.hero-sub{font-size:14px}
+  .trip-grid{grid-template-columns:1fr 1fr;gap:10px}.card-visual{height:80px;font-size:36px}.card-body{padding:10px 12px 13px}.card-name{font-size:13px}.card-desc,.card-arrow{display:none}
+  .features{grid-template-columns:1fr;gap:10px}
+  .topbar{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 0 18px}.trip-hero-title{font-size:18px}
+  .tabs{width:100%}.tab{flex:1;padding:9px 6px;font-size:12px;text-align:center}
+  .content-cols{grid-template-columns:1fr}
+  .add-row{flex-wrap:wrap}.add-input{flex:1 1 100%}
+  .bag-checks{gap:2px}.bag-chk{width:20px;height:20px;font-size:10px}
+  .bag-view-hdr{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+<div class="home-inner">
+  <nav class="nav">
+    <a class="logo" href="#"><div class="logo-mark">&#10022;</div><span class="logo-text">Pack<span>Wise</span></span></a>
+  </nav>
+  <div class="hero">
+    <div class="hero-eyebrow">&#10022; Smart packing for every trip</div>
+    <h1 class="hero-title">Never forget<br><em>a thing.</em></h1>
+    <p class="hero-sub">Tailored packing lists that adapt to your destination and activities. Assign items to bags as you go, then check them off as you pack.</p>
+  </div>
+  <div class="section-eyebrow">Choose your adventure</div>
+  <div class="trip-grid" id="trip-grid"></div>
+  <div class="features">
+    <div class="feature"><div class="feature-icon">&#9646;&#9646;&#9646;</div><div class="feature-title">Assign to bags inline</div><div class="feature-desc">Three checkmarks on every item &mdash; tap to assign to Checked, Carry-on, or Personal bag.</div></div>
+    <div class="feature"><div class="feature-icon">&#9998;</div><div class="feature-title">Edit anything</div><div class="feature-desc">Tap the pencil icon to rename any item inline. Change &ldquo;5 swimsuits&rdquo; to &ldquo;6&rdquo; in one tap.</div></div>
+    <div class="feature"><div class="feature-icon">&#128683;</div><div class="feature-title">What to leave behind</div><div class="feature-desc">Context-aware tips on what you can skip for each trip type.</div></div>
+  </div>
+</div>
+</div>
+
+<!-- LIST PAGE -->
+<div id="page-list" class="page">
+<div class="list-layout">
+  <div class="topbar">
+    <button class="back-btn" id="back-btn">&#8592; Back</button>
+    <div class="trip-hero-info">
+      <div class="trip-hero-title"><span id="list-emoji"></span><span id="list-title"></span></div>
+      <div class="trip-hero-meta" id="list-meta"></div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" data-tab="packing">&#128203; Packing List</button>
+      <button class="tab" data-tab="bags">&#129523; Bag Summary</button>
+    </div>
+  </div>
+
+  <!-- PACKING TAB -->
+  <div class="tab-panel active" id="tab-packing">
+    <div class="content-cols">
+      <div>
+        <div class="trip-summary-card">
+          <div class="trip-tags-row" id="list-pills"></div>
+          <div class="progress-row">
+            <span class="progress-label">Packed</span>
+            <span class="progress-nums"><b id="cnt-done">0</b> / <span id="cnt-total">0</span></span>
+          </div>
+          <div class="pbar"><div class="pbar-fill" id="pbar-fill" style="width:0%"></div></div>
+          <div class="chips-label">Add activities</div>
+          <div class="chips-row" id="activity-chips"></div>
+        </div>
+        <div class="add-row">
+          <input class="add-input" id="add-input" type="text" placeholder="Add an item&#8230;" />
+          <select class="add-select" id="add-section-sel"></select>
+          <button class="add-go" id="add-go-btn">+ Add</button>
+        </div>
+        <div class="bag-legend-row">
+          <span class="bag-legend-label">Assign to bag:</span>
+          <span class="bag-legend-item"><span class="leg-swatch leg-checked">&#10003;</span>Checked</span>
+          <span class="bag-legend-item"><span class="leg-swatch leg-carry">&#10003;</span>Carry-on</span>
+          <span class="bag-legend-item"><span class="leg-swatch leg-personal">&#10003;</span>Personal</span>
+          <span style="font-family:-apple-system,sans-serif;font-size:11px;color:var(--text3);margin-left:4px">&#9998; = rename &nbsp; &#215; = delete</span>
+        </div>
+        <div id="pack-sections"></div>
+      </div>
+      <div>
+        <div class="skip-section" id="skip-section"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BAG SUMMARY TAB -->
+  <div class="tab-panel" id="tab-bags">
+    <div class="bag-view-intro">
+      Items you've assigned using the <strong style="color:var(--green)">&#9646;</strong> <strong style="color:var(--blue)">&#9646;</strong> <strong style="color:var(--purple)">&#9646;</strong> checkmarks on your packing list appear here, sorted by bag. Tap the same checkmark again to unassign an item.
+    </div>
+    <div class="bag-view-cols" id="bag-view-cols"></div>
+  </div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ======================================================
+   TRIP DATA
+====================================================== */
+var TRIPS = [
+ {id:'beach',emoji:'&#127958;',name:'Beach Vacation',theme:'theme-beach',
+  desc:'Sun, sand &amp; all-inclusive luxury. Canc&uacute;n, Bali, Maldives.',
+  pills:[{t:'Beach & Pool',c:'pill-blue'},{t:'Tropical',c:'pill-green'},{t:'All-Inclusive',c:'pill-accent'}],
+  activities:[{id:'snorkel',label:'&#129344; Snorkeling'},{id:'cenote',label:'&#128167; Cenote'},{id:'nightlife',label:'&#127865; Nightlife'},{id:'spa',label:'&#129486; Spa'},{id:'boat',label:'&#9973;&#65039; Boat Trip'}],
+  defaultActivities:['snorkel'],
+  sections:[
+   {id:'clothing',icon:'&#128247;',label:'Clothing',items:[
+    {n:'4&#8211;5 swimsuits',note:"You'll want dry ones rotating",p:'high'},
+    {n:'Cover-ups (2&#8211;3)',note:'For dining & walking',p:'high'},
+    {n:'Casual dinner outfits',note:'Check resort dress code',p:'high'},
+    {n:'One nicer outfit',note:'For specialty restaurants',p:'med'},
+    {n:'Flip flops',p:'high'},{n:'Comfortable sandals',p:'high'},
+    {n:'Lightweight cardigan',note:'AC can be intense indoors',p:'med'},
+    {n:'Comfy sneakers',note:'For excursion days',p:'med',act:'cenote'},
+    {n:'Going-out outfit',p:'high',act:'nightlife'},
+    {n:'Heels or dress shoes',note:'Many clubs enforce dress codes',p:'med',act:'nightlife'},
+   ]},
+   {id:'beach',icon:'&#127940;',label:'Beach & Pool',items:[
+    {n:'Reef-safe sunscreen SPF 50+',note:'Required in Mexican waters',p:'high'},
+    {n:'After-sun lotion / aloe',p:'high'},{n:'Sunglasses',note:'Polarized recommended',p:'high'},
+    {n:'Wide-brim hat',p:'high'},{n:'Waterproof phone pouch',p:'high'},
+    {n:'Beach bag',p:'med'},{n:'Reusable water bottle',p:'med'},
+    {n:'Rash guard / UV shirt',act:'snorkel',p:'high'},
+    {n:'Personal snorkel set',note:'Optional; rentals available',act:'snorkel',p:'low'},
+    {n:'GoPro or waterproof camera',act:'snorkel',p:'low'},
+    {n:'Waterproof dry bag',note:'Essential for cenote tours',act:'cenote',p:'high'},
+    {n:'Water shoes',note:'Rocky cenote entry',act:'cenote',p:'med'},
+    {n:'Seasickness tablets',act:'boat',p:'med'},
+   ]},
+   {id:'toiletries',icon:'&#129428;',label:'Toiletries',items:[
+    {n:'Toiletry kit',p:'high'},{n:'Insect repellent',note:'Mosquitoes bad at dusk',p:'high'},
+    {n:'Prescription medications',note:'Bring documentation',p:'high'},
+    {n:'Spa skincare',act:'spa',p:'low'},
+   ]},
+   {id:'health',icon:'&#128138;',label:'Health',items:[
+    {n:'Imodium / Pepto-Bismol',note:"Traveler's stomach is real",p:'high'},
+    {n:'Antihistamines',p:'med'},{n:'Pain reliever',p:'med'},
+    {n:'Blister bandages',p:'med'},{n:'Hand sanitizer',p:'med'},
+   ]},
+   {id:'docs',icon:'&#128196;',label:'Documents',items:[
+    {n:'Passport',note:'Valid 6+ months from travel date',p:'high'},
+    {n:'Travel insurance info',p:'high'},{n:'Resort confirmation',p:'high'},
+    {n:'Small amount of local cash',note:'For tips & markets',p:'med'},
+    {n:'Credit card (no FX fees)',p:'med'},
+   ]},
+   {id:'tech',icon:'&#128241;',label:'Tech',items:[
+    {n:'Phone + charger',p:'high'},{n:'Multi-port USB charger',p:'med'},
+    {n:'Earbuds',p:'med'},{n:'Kindle or tablet',note:'For beach reading',p:'low'},
+    {n:'Power bank',act:'cenote',p:'med'},
+   ]},
+  ],
+  skip:[{name:'Hair dryer',reason:'All-inclusive rooms provide them'},{name:'Multiple pairs of jeans',reason:'Too hot; one pair max'},{name:'Loads of cash',reason:'All-inclusive; small amount for tips only'},{name:'Bulky beach towels',reason:'Provided poolside at the resort'},{name:'Power adapter',reason:'Mexico uses standard US-style plugs'}]},
+
+ {id:'city',emoji:'&#127961;',name:'European City Trip',theme:'theme-city',
+  desc:'Museums, cobblestones, caf&eacute; terraces. Paris, Rome, Amsterdam.',
+  pills:[{t:'City Break',c:'pill-blue'},{t:'Culture',c:'pill-accent'},{t:'Walking',c:'pill-green'}],
+  activities:[{id:'museums',label:'&#127963;&#65039; Museums'},{id:'dining',label:'&#127373; Fine Dining'},{id:'daytrip',label:'&#128646; Day Trips'},{id:'shopping',label:'&#128717; Shopping'},{id:'nightout',label:'&#127917; Nightlife'}],
+  defaultActivities:['museums','dining'],
+  sections:[
+   {id:'clothing',icon:'&#128247;',label:'Clothing',items:[
+    {n:'Smart casual outfits (3&#8211;4)',note:'Europeans dress up more than you think',p:'high'},
+    {n:'One nice dinner outfit',p:'high'},{n:'Comfortable walking shoes',note:'10+ miles/day',p:'high'},
+    {n:'One pair of nicer shoes',act:'dining',p:'high'},{n:'Light jacket or blazer',note:'Evenings get cool',p:'high'},
+    {n:'Umbrella or packable rain jacket',p:'med'},{n:'Crossbody bag',note:'Anti-pickpocket style',p:'high'},
+    {n:'Shopping tote',act:'shopping',p:'med'},
+   ]},
+   {id:'essentials',icon:'&#127920;',label:'Essentials',items:[
+    {n:'Passport + photocopies',p:'high'},{n:'Travel insurance info',p:'high'},
+    {n:'Eurail or transit card',p:'high'},{n:'Museum passes / tickets',act:'museums',p:'high'},
+    {n:'Restaurant reservations printed',act:'dining',p:'med'},
+    {n:'Credit card (no FX fees)',p:'high'},{n:'Small amount of local cash',p:'med'},
+   ]},
+   {id:'comfort',icon:'&#127807;',label:'Comfort',items:[
+    {n:'Blister bandages',note:'New shoes + cobblestones',p:'high'},
+    {n:'Compression socks',note:'For long flights',p:'med'},
+    {n:'Eye mask + earplugs',p:'med'},{n:'Pain reliever',p:'med'},{n:'Hand sanitizer',p:'med'},
+   ]},
+   {id:'tech',icon:'&#128241;',label:'Tech',items:[
+    {n:'Universal power adapter',note:'EU uses Type C/E plugs',p:'high'},
+    {n:'Phone + charger',p:'high'},{n:'Portable power bank',p:'med'},
+    {n:'Offline maps downloaded',note:'Google Maps or MAPS.ME',p:'high'},{n:'Earbuds',p:'med'},
+   ]},
+  ],
+  skip:[{name:'Hair dryer',reason:'Hotels provide them'},{name:'Lots of cash',reason:'Cards accepted almost everywhere'},{name:'Heavy luggage',reason:'Cobblestones + stairs = light bags'},{name:'Brand-new shoes',reason:'Break them in first or risk blisters'}]},
+
+ {id:'hike',emoji:'&#128094;',name:'Hiking Trip',theme:'theme-hike',
+  desc:'Trails, summits, wild camping. Gear-focused backcountry packing.',
+  pills:[{t:'Outdoors',c:'pill-green'},{t:'Active',c:'pill-accent'},{t:'Backcountry',c:'pill-orange'}],
+  activities:[{id:'camping',label:'&#9978;&#65039; Camping'},{id:'summiting',label:'&#127956; Summit Attempts'},{id:'river',label:'&#127966; River Crossings'},{id:'photography',label:'&#128247; Photography'}],
+  defaultActivities:['camping'],
+  sections:[
+   {id:'gear',icon:'&#127920;',label:'Gear',items:[
+    {n:'Hiking boots (broken in)',note:'Never hike in new boots',p:'high'},
+    {n:'Trekking poles',p:'med'},{n:'Daypack (20&#8211;30L)',p:'high'},
+    {n:'Headlamp + spare batteries',p:'high'},{n:'Multi-tool or knife',p:'med'},
+    {n:'Tent',act:'camping',p:'high'},{n:'Sleeping bag (rated for temp)',act:'camping',p:'high'},
+    {n:'Sleeping pad',act:'camping',p:'high'},{n:'Camp stove + fuel',act:'camping',p:'high'},
+    {n:'Water filter or purification tabs',p:'high'},{n:'Crampons or microspikes',act:'summiting',p:'high'},
+   ]},
+   {id:'clothing',icon:'&#129529;',label:'Clothing',items:[
+    {n:'Moisture-wicking base layers (2&#8211;3)',p:'high'},{n:'Fleece mid-layer',p:'high'},
+    {n:'Waterproof shell jacket',p:'high'},{n:'Waterproof hiking pants',p:'high'},
+    {n:'Wool hiking socks (3&#8211;4 pairs)',p:'high'},{n:'Sun hat + buff',p:'med'},
+    {n:'Warm hat + gloves',act:'summiting',p:'high'},{n:'Camp shoes or sandals',act:'camping',p:'med'},
+   ]},
+   {id:'safety',icon:'&#129338;',label:'Safety & Navigation',items:[
+    {n:'Topographic map',p:'high'},{n:'Compass',p:'high'},{n:'GPS or offline maps',p:'high'},
+    {n:'Emergency whistle',p:'high'},{n:'First aid kit (trail-specific)',p:'high'},
+    {n:'Emergency space blanket',p:'high'},{n:'Sunscreen SPF 50+',p:'high'},{n:'Insect repellent',p:'med'},
+   ]},
+   {id:'food',icon:'&#127851;',label:'Food & Water',items:[
+    {n:'High-calorie trail snacks',p:'high'},{n:'Freeze-dried meals',act:'camping',p:'high'},
+    {n:'Water bottles (2 x 1L)',p:'high'},{n:'Bear canister or bag',act:'camping',p:'high'},
+   ]},
+  ],
+  skip:[{name:'Cotton clothing',reason:'Cotton kills in cold + wet'},{name:'Unnecessary electronics',reason:'Every ounce matters'},{name:'Jeans',reason:'Heavy, no stretch, slow to dry'}]},
+
+ {id:'ski',emoji:'&#9973;&#65039;',name:'Ski Trip',theme:'theme-ski',
+  desc:'Powder days and apr&egrave;s-ski. Aspen to the Alps.',
+  pills:[{t:'Winter',c:'pill-blue'},{t:'Snow Sports',c:'pill-accent'},{t:'Alpine',c:'pill-purple'}],
+  activities:[{id:'rental',label:'&#127935; Rental Gear'},{id:'apres',label:'&#127862; Apr&egrave;s-Ski'},{id:'backcountry',label:'&#127956; Backcountry'}],
+  defaultActivities:['apres'],
+  sections:[
+   {id:'ski-gear',icon:'&#127935;',label:'Ski Gear',items:[
+    {n:'Skis or snowboard',note:'Or confirm rental details',p:'high'},
+    {n:'Ski boots',note:'Rent if you don\'t own',p:'high'},
+    {n:'Helmet',note:'Non-negotiable on slopes',p:'high'},{n:'Goggles',p:'high'},
+    {n:'Beacon + probe + shovel',act:'backcountry',p:'high'},
+   ]},
+   {id:'clothing',icon:'&#129510;',label:'Clothing',items:[
+    {n:'Thermal base layer set (2)',p:'high'},{n:'Ski pants (waterproof)',p:'high'},
+    {n:'Ski jacket (waterproof)',p:'high'},{n:'Ski socks &#8211; wool (3 pairs)',p:'high'},
+    {n:'Neck gaiter / balaclava',p:'high'},{n:'Warm hat',p:'high'},
+    {n:'Waterproof ski gloves',p:'high'},
+    {n:'Casual apr&egrave;s-ski outfit',act:'apres',p:'high'},{n:'Comfy boots for town',act:'apres',p:'med'},
+   ]},
+   {id:'essentials',icon:'&#128138;',label:'Essentials',items:[
+    {n:'High-SPF sunscreen + lip balm',note:'UV reflects off snow',p:'high'},
+    {n:'Hand warmers',p:'med'},{n:'Lift tickets / pass',p:'high'},
+    {n:'Pain reliever + muscle rub',p:'med'},{n:'Electrolytes',note:'Altitude dehydrates you',p:'med'},
+   ]},
+  ],
+  skip:[{name:'Denim on the slopes',reason:'Jeans are useless when wet and cold'},{name:'Cotton base layers',reason:'Go merino wool or synthetic only'}]},
+
+ {id:'cruise',emoji:'&#128674;',name:'Cruise',theme:'theme-cruise',
+  desc:'Sea days, port excursions, and formal night elegance.',
+  pills:[{t:'Ocean',c:'pill-blue'},{t:'All-Inclusive',c:'pill-accent'},{t:'Multi-Dest',c:'pill-purple'}],
+  activities:[{id:'formal',label:'&#127870; Formal Nights'},{id:'excursions',label:'&#127965; Port Excursions'},{id:'pool',label:'&#127944; Pool & Deck'}],
+  defaultActivities:['formal','pool'],
+  sections:[
+   {id:'clothing',icon:'&#128247;',label:'Clothing',items:[
+    {n:'Swimsuits (3&#8211;4)',p:'high',act:'pool'},{n:'Cover-ups',p:'high',act:'pool'},
+    {n:'Casual daytime outfits',p:'high'},{n:'Smart casual dinner wear',p:'high'},
+    {n:'Formal outfit',note:'For formal night',p:'high',act:'formal'},{n:'Formal shoes',act:'formal',p:'high'},
+    {n:'Comfortable walking shoes',act:'excursions',p:'high'},{n:'Light rain jacket',act:'excursions',p:'med'},
+   ]},
+   {id:'docs',icon:'&#128196;',label:'Documents',items:[
+    {n:'Passport',p:'high'},{n:'Cruise card / boarding docs',p:'high'},
+    {n:'Travel insurance',p:'high'},{n:'Port excursion bookings',act:'excursions',p:'med'},
+    {n:'Local cash for ports',act:'excursions',p:'med'},
+   ]},
+   {id:'comfort',icon:'&#127807;',label:'Health & Comfort',items:[
+    {n:'Seasickness patches or meds',note:'Get prescription if prone',p:'high'},
+    {n:'Reef-safe sunscreen',p:'high'},{n:'After-sun lotion',p:'med'},
+    {n:'Hand sanitizer',note:'Norovirus prevention',p:'high'},{n:'Pain reliever',p:'med'},
+   ]},
+  ],
+  skip:[{name:'Full-size toiletries',reason:'Ship store stocks basics'},{name:'Beach towels',reason:'Provided on deck'},{name:'Too many formal outfits',reason:'Usually 1&#8211;2 formal nights per voyage'}]},
+
+ {id:'safari',emoji:'&#129409;',name:'Safari',theme:'theme-safari',
+  desc:'Dawn game drives and Big Five sightings. The African bush.',
+  pills:[{t:'Africa',c:'pill-orange'},{t:'Wildlife',c:'pill-green'},{t:'Adventure',c:'pill-accent'}],
+  activities:[{id:'bush',label:'&#127807; Bush Walks'},{id:'photo',label:'&#128247; Photography'},{id:'lodge',label:'&#127957; Lodge Stay'}],
+  defaultActivities:['photo'],
+  sections:[
+   {id:'clothing',icon:'&#128085;',label:'Clothing',items:[
+    {n:'Neutral shirts (4&#8211;5)',note:'Khaki, tan, olive only',p:'high'},
+    {n:'Lightweight long pants (3)',p:'high'},{n:'Wide-brim sun hat',p:'high'},
+    {n:'Warm layer for early drives',note:'Mornings can be cold',p:'high'},
+    {n:'Sandals for camp',act:'lodge',p:'med'},{n:'Sturdy walking boots',act:'bush',p:'high'},
+   ]},
+   {id:'safari-gear',icon:'&#128300;',label:'Safari Gear',items:[
+    {n:'Binoculars',note:'8x42 or 10x42 recommended',p:'high'},
+    {n:'Camera with telephoto lens',act:'photo',p:'high'},
+    {n:'Extra memory cards + batteries',act:'photo',p:'high'},
+    {n:'Dustproof bag or cover',note:'Roads are very dusty',p:'high'},
+   ]},
+   {id:'health',icon:'&#128138;',label:'Health',items:[
+    {n:'Malaria prophylaxis',note:'Start course before travel',p:'high'},
+    {n:'Yellow fever cert',note:'Required for many countries',p:'high'},
+    {n:'Insect repellent (DEET 30%+)',p:'high'},{n:'High-SPF sunscreen',p:'high'},
+    {n:'Hand sanitizer',p:'med'},{n:'First aid kit',p:'med'},
+   ]},
+  ],
+  skip:[{name:'Bright or white clothing',reason:'Attracts insects; disturbs wildlife'},{name:'Perfume or strong scents',reason:'Attracts insects'},{name:'Jewelry',reason:'Glare disturbs animals'}]},
+
+ {id:'backpack',emoji:'&#127920;',name:'Backpacking Trip',theme:'theme-backpack',
+  desc:'One bag, many countries. SE Asia to South America, carry-on only.',
+  pills:[{t:'Long-Term',c:'pill-orange'},{t:'Budget',c:'pill-accent'},{t:'Minimalist',c:'pill-green'}],
+  activities:[{id:'hostels',label:'&#127968; Hostels'},{id:'scuba',label:'&#129344; Scuba'},{id:'motorbike',label:'&#128693; Motorbike'}],
+  defaultActivities:['hostels'],
+  sections:[
+   {id:'clothing',icon:'&#128085;',label:'Clothing (pack light!)',items:[
+    {n:'Quick-dry t-shirts (4)',p:'high'},{n:'Nicer shirts (2)',p:'high'},
+    {n:'Zip-off pants (2)',p:'high'},{n:'Shorts (2)',p:'high'},
+    {n:'Merino underwear (5&#8211;6)',note:'Dries fastest',p:'high'},
+    {n:'Sandals (Chacos or Tevas)',p:'high'},{n:'Lightweight sneakers',p:'high'},
+    {n:'Packable rain jacket',p:'high'},{n:'Helmet',note:'For motorbike days',act:'motorbike',p:'high'},
+   ]},
+   {id:'pack',icon:'&#127920;',label:'Pack Essentials',items:[
+    {n:'40&#8211;50L backpack',p:'high'},{n:'Packing cubes',p:'high'},
+    {n:'Padlock',note:'For hostel lockers',act:'hostels',p:'high'},
+    {n:'Microfiber towel',act:'hostels',p:'high'},{n:'Sleep sheet / liner',act:'hostels',p:'med'},
+    {n:'Earplugs',act:'hostels',p:'high'},{n:'Eye mask',act:'hostels',p:'med'},
+   ]},
+   {id:'tech',icon:'&#128241;',label:'Tech',items:[
+    {n:'Phone + charger',p:'high'},{n:'Universal adapter',p:'high'},
+    {n:'Power bank',p:'high'},{n:'Unlocked phone for local SIMs',p:'high'},
+    {n:'Waterproof phone case',act:'scuba',p:'high'},
+   ]},
+   {id:'docs',icon:'&#128196;',label:'Docs & Money',items:[
+    {n:'Passport + 2 photocopies',p:'high'},{n:'Travel insurance',p:'high'},
+    {n:'Visa documents',p:'high'},{n:'Debit card &#8212; no FX fees',note:'Wise, Revolut, Schwab',p:'high'},
+    {n:'Emergency cash (USD)',note:'Accepted almost everywhere',p:'high'},
+   ]},
+  ],
+  skip:[{name:'Full-size toiletries',reason:'Buy travel size or get at hostels'},{name:'Hair dryer',reason:'Every guesthouse has one'},{name:'More than 2 pairs of shoes',reason:'Sandals + sneakers covers everything'}]},
+
+ {id:'wellness',emoji:'&#129352;',name:'Wellness Retreat',theme:'theme-wellness',
+  desc:'Yoga, meditation, and digital detox. Bali or spa destination.',
+  pills:[{t:'Mindfulness',c:'pill-purple'},{t:'Spa',c:'pill-accent'},{t:'Slow Travel',c:'pill-green'}],
+  activities:[{id:'yoga',label:'&#129352; Yoga'},{id:'meditation',label:'&#128367; Meditation'},{id:'nature',label:'&#127807; Nature Walks'}],
+  defaultActivities:['yoga'],
+  sections:[
+   {id:'clothing',icon:'&#129352;',label:'Clothing',items:[
+    {n:'Yoga pants / leggings (3)',p:'high'},{n:'Yoga tops (3&#8211;4)',p:'high'},
+    {n:'Comfortable loose loungewear',p:'high'},{n:'Light layers for cool evenings',p:'med'},
+    {n:'Non-slip yoga socks',act:'yoga',p:'med'},{n:'Comfortable walking shoes',act:'nature',p:'high'},
+   ]},
+   {id:'wellness',icon:'&#127807;',label:'Wellness Kit',items:[
+    {n:'Yoga mat',note:'Or confirm retreat provides',act:'yoga',p:'high'},
+    {n:'Journal + pen',note:'For reflection',p:'high'},
+    {n:'Meditation cushion',act:'meditation',p:'low'},{n:'Essential oils',p:'low'},
+   ]},
+   {id:'self-care',icon:'&#128134;',label:'Self-care',items:[
+    {n:'Natural skincare routine',p:'high'},{n:'Sunscreen',p:'high'},
+    {n:'Insect repellent (natural)',p:'med'},{n:'Eye mask',p:'med'},{n:'Earplugs',p:'low'},
+   ]},
+  ],
+  skip:[{name:'Heavy electronics',reason:'A retreat is about disconnecting'},{name:'Flashy jewelry',reason:'Minimalism is part of the vibe'}]},
+];
+
+/* ======================================================
+   STATE
+====================================================== */
+var state = {trip:null, activeActivities:{}, checkedItems:{}, collapsedSections:{}, customItems:{}, itemBags:{}};
+
+/* ======================================================
+   HOME
+====================================================== */
+function renderHome(){
+  var grid = document.getElementById('trip-grid');
+  grid.innerHTML = '';
+  TRIPS.forEach(function(trip){
+    var card = document.createElement('div');
+    card.className = 'trip-card ' + trip.theme;
+    card.innerHTML = '<div class="card-visual">' + trip.emoji + '</div><div class="card-glow"></div><div class="card-body"><div class="card-name">' + trip.name + '</div><div class="card-desc">' + trip.desc + '</div><div class="card-arrow">Start packing &#8594;</div></div>';
+    card.addEventListener('click', function(){ openTrip(trip); });
+    grid.appendChild(card);
+  });
+}
+
+/* ======================================================
+   OPEN TRIP
+====================================================== */
+function openTrip(trip){
+  state.trip = trip;
+  state.activeActivities = {};
+  state.checkedItems = {};
+  state.collapsedSections = {};
+  state.customItems = {};
+  state.itemBags = {};
+  (trip.defaultActivities||[]).forEach(function(id){ state.activeActivities[id] = true; });
+
+  document.getElementById('list-emoji').innerHTML = trip.emoji;
+  document.getElementById('list-title').textContent = trip.name;
+  document.getElementById('list-meta').textContent = 'Personalize your list below';
+
+  document.getElementById('list-pills').innerHTML = trip.pills.map(function(p){
+    return '<span class="pill ' + p.c + '">' + p.t + '</span>';
+  }).join('');
+
+  var chipsEl = document.getElementById('activity-chips');
+  chipsEl.innerHTML = '';
+  trip.activities.forEach(function(act){
+    var chip = document.createElement('div');
+    chip.className = 'chip-act' + (state.activeActivities[act.id] ? ' on' : '');
+    chip.innerHTML = act.label;
+    chip.dataset.id = act.id;
+    chip.addEventListener('click', function(){
+      state.activeActivities[act.id] = !state.activeActivities[act.id];
+      chip.classList.toggle('on');
+      renderPackSections();
+      if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
+    });
+    chipsEl.appendChild(chip);
+  });
+
+  document.getElementById('add-section-sel').innerHTML = trip.sections.map(function(s){
+    return '<option value="' + s.id + '">' + s.label + '</option>';
+  }).join('');
+
+  renderPackSections();
+  renderSkip();
+  renderBagView();
+
+  document.getElementById('page-home').classList.remove('active');
+  document.getElementById('page-list').classList.add('active');
+  switchTab('packing');
+  window.scrollTo(0, 0);
+}
+
+/* ======================================================
+   INLINE EDIT
+====================================================== */
+function startEdit(nameDiv, sec, item, isCustom){
+  var oldName = item.n;
+  var input = document.createElement('input');
+  input.className = 'pack-name-input';
+  input.value = oldName;
+  nameDiv.replaceWith(input);
+  input.focus(); input.select();
+
+  function save(){
+    var newName = input.value.trim();
+    if(!newName || newName === oldName){ renderPackSections(); return; }
+    if(isCustom){
+      (state.customItems[sec.id]||[]).forEach(function(x){ if(x.n === oldName) x.n = newName; });
+    } else {
+      sec.items.forEach(function(x){ if(x.n === oldName) x.n = newName; });
+    }
+    var ok = sec.id + '::' + oldName, nk = sec.id + '::' + newName;
+    if(state.checkedItems[ok]){ state.checkedItems[nk] = true; delete state.checkedItems[ok]; }
+    if(state.itemBags[ok]){ state.itemBags[nk] = state.itemBags[ok]; delete state.itemBags[ok]; }
+    renderPackSections();
+    if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
+    showToast('Renamed &#10003;');
+  }
+  input.addEventListener('blur', save);
+  input.addEventListener('keydown', function(e){ if(e.key==='Enter') input.blur(); if(e.key==='Escape') renderPackSections(); });
+}
+
+/* ======================================================
+   PACKING LIST
+====================================================== */
+function renderPackSections(){
+  var container = document.getElementById('pack-sections');
+  container.innerHTML = '';
+  var total = 0, done = 0;
+
+  state.trip.sections.forEach(function(sec){
+    var items = sec.items.filter(function(i){ return !i.act || state.activeActivities[i.act]; });
+    var customs = state.customItems[sec.id] || [];
+    var all = items.concat(customs);
+    if(all.length === 0) return;
+
+    var secDone = all.filter(function(i){ return state.checkedItems[sec.id + '::' + i.n]; }).length;
+    total += all.length; done += secDone;
+    var collapsed = !!state.collapsedSections[sec.id];
+
+    var secEl = document.createElement('div');
+    secEl.className = 'pack-section';
+
+    var hdr = document.createElement('div');
+    hdr.className = 'sec-hdr';
+    hdr.innerHTML = '<div class="sec-hdr-left"><span class="sec-icon">' + sec.icon + '</span><span class="sec-name">' + sec.label + '</span><span class="sec-count">' + secDone + '/' + all.length + '</span></div><span class="sec-chevron' + (collapsed ? '' : ' open') + '">&#9658;</span>';
+    hdr.addEventListener('click', function(){ state.collapsedSections[sec.id] = !collapsed; renderPackSections(); });
+
+    var body = document.createElement('div');
+    body.className = 'sec-body';
+    body.style.display = collapsed ? 'none' : 'flex';
+
+    all.forEach(function(item, idx){
+      var key = sec.id + '::' + item.n;
+      var isDone = !!state.checkedItems[key];
+      var isCustom = !!item.custom;
+      var bag = state.itemBags[key] || 'none';
+
+      var el = document.createElement('div');
+      el.className = 'pack-item' + (isDone ? ' done' : '') + (isCustom ? ' is-custom' : '');
+      el.style.animationDelay = (idx * 0.025) + 's';
+      el.innerHTML =
+        '<div class="check-box"><span class="check-inner">&#10003;</span></div>' +
+        '<div class="pack-content">' +
+          '<div class="pack-name">' + item.n + '</div>' +
+          (item.note ? '<div class="pack-note">' + item.note + '</div>' : '') +
+        '</div>' +
+        '<div class="bag-checks">' +
+          '<button class="bag-chk' + (bag==='checked'?' on-checked':'') + '" data-bag="checked" title="Checked bag">&#10003;</button>' +
+          '<button class="bag-chk' + (bag==='carry'?' on-carry':'') + '" data-bag="carry" title="Carry-on">&#10003;</button>' +
+          '<button class="bag-chk' + (bag==='personal'?' on-personal':'') + '" data-bag="personal" title="Personal item">&#10003;</button>' +
+        '</div>' +
+        '<button class="edit-btn" title="Edit name">&#9998;</button>' +
+        '<button class="del-btn" title="Remove">&#215;</button>';
+
+      // Tick packed
+      (function(k){
+        el.querySelector('.check-box').addEventListener('click', function(e){
+          e.stopPropagation();
+          state.checkedItems[k] = !state.checkedItems[k];
+          renderPackSections();
+        });
+      })(key);
+
+      // Bag assignment checkmarks
+      (function(k){
+        el.querySelectorAll('.bag-chk').forEach(function(btn){
+          btn.addEventListener('click', function(e){
+            e.stopPropagation();
+            var b = btn.dataset.bag;
+            state.itemBags[k] = (state.itemBags[k] === b) ? 'none' : b;
+            renderPackSections();
+            if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
+          });
+        });
+      })(key);
+
+      // Edit name
+      (function(s, it, iC){
+        el.querySelector('.edit-btn').addEventListener('click', function(e){
+          e.stopPropagation();
+          startEdit(el.querySelector('.pack-name'), s, it, iC);
+        });
+      })(sec, item, isCustom);
+
+      // Delete
+      (function(sid, iname, iC){
+        el.querySelector('.del-btn').addEventListener('click', function(e){
+          e.stopPropagation();
+          if(iC){
+            state.customItems[sid] = (state.customItems[sid]||[]).filter(function(x){ return x.n !== iname; });
+          } else {
+            var s = state.trip.sections.find(function(s){ return s.id === sid; });
+            if(s) s.items = s.items.filter(function(x){ return x.n !== iname; });
+          }
+          var k = sid + '::' + iname;
+          delete state.checkedItems[k]; delete state.itemBags[k];
+          renderPackSections();
+          if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
+          showToast('Item removed');
+        });
+      })(sec.id, item.n, isCustom);
+
+      body.appendChild(el);
+    });
+
+    secEl.appendChild(hdr); secEl.appendChild(body);
+    container.appendChild(secEl);
+  });
+
+  document.getElementById('cnt-total').textContent = total;
+  document.getElementById('cnt-done').textContent = done;
+  document.getElementById('pbar-fill').style.width = (total > 0 ? Math.round(done/total*100) : 0) + '%';
+}
+
+function renderSkip(){
+  var el = document.getElementById('skip-section');
+  el.innerHTML = '<div class="skip-title">&#128683; Leave these at home</div>' +
+    (state.trip.skip||[]).map(function(s){
+      return '<div class="skip-row"><span class="skip-x">&#10005;</span><span class="skip-txt"><strong>' + s.name + '</strong> &#8212; ' + s.reason + '</span></div>';
+    }).join('');
+}
+
+/* ======================================================
+   ADD ITEM
+====================================================== */
+document.getElementById('add-go-btn').addEventListener('click', addPackItem);
+document.getElementById('add-input').addEventListener('keydown', function(e){ if(e.key === 'Enter') addPackItem(); });
+
+function addPackItem(){
+  var input = document.getElementById('add-input');
+  var sel = document.getElementById('add-section-sel');
+  var name = input.value.trim();
+  if(!name){ input.focus(); return; }
+  var secId = sel.value;
+  if(!state.customItems[secId]) state.customItems[secId] = [];
+  var sec = state.trip.sections.find(function(s){ return s.id === secId; });
+  var exists = (state.customItems[secId]||[]).some(function(i){ return i.n.toLowerCase() === name.toLowerCase(); }) ||
+    (sec && sec.items.some(function(i){ return i.n.toLowerCase() === name.toLowerCase(); }));
+  if(exists){ showToast('Already on your list!'); return; }
+  state.customItems[secId].push({n:name, note:'Added by you', p:'med', custom:true});
+  input.value = '';
+  state.collapsedSections[secId] = false;
+  renderPackSections();
+  if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
+  showToast('Added &#10003;');
+}
+
+/* ======================================================
+   BAG SUMMARY VIEW
+====================================================== */
+var BAGS_META = [
+  {id:'checked',  label:'Checked Bag',   icon:'&#128994;', badge:'badge-checked',  dot:'dot-checked',  limit:'Up to 50 lbs &middot; No liquids restriction'},
+  {id:'carry',    label:'Carry-on',      icon:'&#128309;', badge:'badge-carry',    dot:'dot-carry',    limit:'22&times;14&times;9 in &middot; 3-1-1 rule for liquids'},
+  {id:'personal', label:'Personal Item', icon:'&#128995;', badge:'badge-personal', dot:'dot-personal', limit:'18&times;14&times;8 in &middot; Under seat in front'},
+];
+
+function renderBagView(){
+  var byBag = {checked:[], carry:[], personal:[]};
+  if(state.itemBags && state.trip){
+    state.trip.sections.forEach(function(sec){
+      var items = sec.items.filter(function(i){ return !i.act || state.activeActivities[i.act]; });
+      var customs = state.customItems[sec.id] || [];
+      items.concat(customs).forEach(function(item){
+        var key = sec.id + '::' + item.n;
+        var b = state.itemBags[key];
+        if(b && byBag[b]) byBag[b].push({name:item.n, sec:sec.label});
+      });
+    });
+  }
+  var col = document.getElementById('bag-view-cols');
+  col.innerHTML = '';
+  BAGS_META.forEach(function(meta){
+    var items = byBag[meta.id] || [];
+    var card = document.createElement('div');
+    card.className = 'bag-view-card';
+    card.innerHTML =
+      '<div class="bag-view-hdr">' +
+        '<div class="bag-view-title"><span>' + meta.icon + '</span><span>' + meta.label + '</span><span class="bag-view-badge ' + meta.badge + '">' + items.length + ' item' + (items.length !== 1 ? 's' : '') + '</span></div>' +
+        '<span class="bag-view-limit">' + meta.limit + '</span>' +
+      '</div>' +
+      '<div class="bag-view-body">' +
+        (items.length === 0
+          ? '<div class="bag-view-empty">Nothing assigned yet &mdash; use the &#9646; checkmarks on your packing list</div>'
+          : items.map(function(it){
+              return '<div class="bag-view-item"><div class="bag-view-dot ' + meta.dot + '"></div><span class="bag-view-name">' + it.name + '</span><span class="bag-view-sec">' + it.sec + '</span></div>';
+            }).join('')
+        ) +
+      '</div>';
+    col.appendChild(card);
+  });
+}
+
+/* ======================================================
+   TABS & NAVIGATION
+====================================================== */
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click', function(){ switchTab(tab.dataset.tab); });
+});
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.toggle('active', t.dataset.tab === name); });
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.toggle('active', p.id === 'tab-' + name); });
+  if(name === 'bags') renderBagView();
+}
+
+document.getElementById('back-btn').addEventListener('click', function(){
+  document.getElementById('page-list').classList.remove('active');
+  document.getElementById('page-home').classList.add('active');
+  window.scrollTo(0, 0);
+});
+
+/* ======================================================
+   TOAST
+====================================================== */
+function showToast(msg){
+  var t = document.getElementById('toast');
+  t.innerHTML = msg;
+  t.classList.add('show');
+  clearTimeout(window._tt);
+  window._tt = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+}
+
+/* ======================================================
+   INIT
+====================================================== */
+renderHome();
+</script>
+</body>
+</html>
