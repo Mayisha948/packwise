@@ -271,6 +271,17 @@ button { font-family: inherit; }
   overflow: hidden;
 }
 .card-arrow { display: none; }
+.card-progress {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  font-family: var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  opacity: 0.8;
+}
 
 .trip-card:nth-child(1){animation-delay:.04s}
 .trip-card:nth-child(2){animation-delay:.09s}
@@ -285,36 +296,39 @@ button { font-family: inherit; }
    HOME — FEATURES
 ═══════════════════════════════════════════ */
 .features {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: row;
   gap: 0;
   border-top: 1px solid var(--ln);
-  padding-top: 48px;
-  padding-bottom: 64px;
+  border-bottom: 1px solid var(--ln);
+  padding: 20px 0;
+  margin-bottom: 56px;
 }
-.feature { padding-right: 48px; }
-.feature-num {
-  font-family: var(--serif);
-  font-size: 32px;
-  font-weight: 400;
-  color: #C4B8A8;
-  letter-spacing: -0.04em;
-  margin-bottom: 16px;
-  line-height: 1;
+.feature {
+  flex: 1;
+  padding: 0 32px 0 0;
+  border-right: 1px solid var(--ln);
+  margin-right: 32px;
+}
+.feature:last-child {
+  border-right: none;
+  margin-right: 0;
+  padding-right: 0;
 }
 .feature-title {
-  font-family: var(--serif);
-  font-size: 15px;
+  font-family: var(--sans);
+  font-size: 12px;
   font-weight: 500;
   color: var(--t1);
-  margin-bottom: 8px;
-  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 .feature-desc {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 300;
-  color: var(--t2);
-  line-height: 1.65;
+  color: var(--t3);
+  line-height: 1.55;
   font-family: var(--sans);
 }
 
@@ -973,14 +987,18 @@ button { font-family: inherit; }
 ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
   .content-cols { grid-template-columns: 1fr; gap: 0; }
-  .features { grid-template-columns: 1fr; gap: 40px; }
+  .features { flex-direction: row; }
+  .feature { padding-right: 20px; margin-right: 20px; }
   .trip-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
   .list-hint-bar { gap: 12px; }
 }
 @media (max-width: 640px) {
   .home-inner  { padding: 0 20px 80px; }
-  .hero        { padding: 64px 0 52px; }
+  .hero        { padding: 64px 0 36px; }
   .hero-title  { font-size: 44px; }
+  .features    { flex-direction: column; gap: 16px; padding: 16px 0; margin-bottom: 40px; }
+  .feature     { border-right: none; margin-right: 0; padding-right: 0; border-bottom: 1px solid var(--ln); padding-bottom: 16px; }
+  .feature:last-child { border-bottom: none; padding-bottom: 0; }
   .trip-grid   { grid-template-columns: 1fr; gap: 16px; }
   .card-visual { height: 160px; }
   .card-body   { padding: 20px 22px 24px; }
@@ -1021,19 +1039,16 @@ button { font-family: inherit; }
   </div>
   <div class="features">
     <div class="feature">
-      <div class="feature-num">01</div>
-      <div class="feature-title">Assign to bags inline</div>
-      <div class="feature-desc">Three quiet marks on every item. Tap to route it to your checked bag, carry-on, or personal item.</div>
+      <div class="feature-title">Bags inline</div>
+      <div class="feature-desc">Three marks per item — route to checked, carry-on, or personal.</div>
     </div>
     <div class="feature">
-      <div class="feature-num">02</div>
       <div class="feature-title">Edit anything</div>
-      <div class="feature-desc">Click any item name to rename it inline. Paste a whole list to add multiple items at once.</div>
+      <div class="feature-desc">Click any name to rename. Paste a list to add in bulk.</div>
     </div>
     <div class="feature">
-      <div class="feature-num">03</div>
       <div class="feature-title">Leave it behind</div>
-      <div class="feature-desc">Context-aware tips on what you can safely skip for each destination type.</div>
+      <div class="feature-desc">Smart tips on what to skip for each trip type.</div>
     </div>
   </div>
   <div class="grid-eyebrow">Destinations</div>
@@ -1392,6 +1407,45 @@ var TRIPS = [
 ];
 
 /* ======================================================
+   PERSISTENCE  —  localStorage save / restore
+====================================================== */
+var STORAGE_KEY = 'packwise_v1';
+
+function saveState(){
+  if(!state.trip) return;
+  try {
+    // Save item mutations: renames and deletes from base sections
+    var itemMutations = {};
+    state.trip.sections.forEach(function(sec){
+      itemMutations[sec.id] = sec.items.map(function(i){ return {n:i.n, note:i.note||'', p:i.p||'med', act:i.act||null}; });
+    });
+    // Save custom sections (user-created categories)
+    var customSections = state.trip.sections.filter(function(s){ return s.id.indexOf('custom_') === 0; })
+      .map(function(s){ return {id:s.id, icon:s.icon, label:s.label}; });
+
+    var saved = {
+      tripId:            state.trip.id,
+      activeActivities:  state.activeActivities,
+      checkedItems:      state.checkedItems,
+      collapsedSections: state.collapsedSections,
+      customItems:       state.customItems,
+      itemBags:          state.itemBags,
+      itemMutations:     itemMutations,
+      customSections:    customSections
+    };
+    localStorage.setItem(STORAGE_KEY + '_' + state.trip.id, JSON.stringify(saved));
+  } catch(e){}
+}
+
+function loadState(tripId){
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY + '_' + tripId);
+    if(!raw) return null;
+    return JSON.parse(raw);
+  } catch(e){ return null; }
+}
+
+/* ======================================================
    STATE
 ====================================================== */
 var state = {trip:null, activeActivities:{}, checkedItems:{}, collapsedSections:{}, customItems:{}, itemBags:{}};
@@ -1418,13 +1472,21 @@ function renderHome(){
     var card = document.createElement('div');
     card.className = 'trip-card ' + trip.theme;
     var subtitle = CARD_SUBTITLES[trip.id] || trip.desc;
-    /* card-visual left empty — background image comes from CSS */
+    // Check if there's saved progress for this trip
+    var saved = loadState(trip.id);
+    var hasSaved = saved && (Object.keys(saved.checkedItems||{}).length > 0 || Object.keys(saved.customItems||{}).some(function(k){ return (saved.customItems[k]||[]).length > 0; }));
+    var progressTag = '';
+    if(hasSaved){
+      var checked = Object.values(saved.checkedItems||{}).filter(Boolean).length;
+      progressTag = '<div class="card-progress">' + checked + ' packed</div>';
+    }
     card.innerHTML =
       '<div class="card-visual"></div>' +
       '<div class="card-glow"></div>' +
       '<div class="card-body">' +
         '<div class="card-name">' + trip.name + '</div>' +
         '<div class="card-desc">' + subtitle + '</div>' +
+        progressTag +
         '<div class="card-arrow"></div>' +
       '</div>';
     card.addEventListener('click', function(){ openTrip(trip); });
@@ -1436,14 +1498,46 @@ function renderHome(){
    OPEN TRIP
 ====================================================== */
 function openTrip(trip){
+  // Deep-clone the trip so mutations don't bleed across sessions
+  trip = JSON.parse(JSON.stringify(trip));
+
+  var saved = loadState(trip.id);
+
+  // Restore item mutations (renames, deletions) onto base sections
+  if(saved && saved.itemMutations){
+    trip.sections.forEach(function(sec){
+      if(saved.itemMutations[sec.id]){
+        sec.items = saved.itemMutations[sec.id];
+      }
+    });
+  }
+
+  // Restore custom user-created sections
+  if(saved && saved.customSections){
+    saved.customSections.forEach(function(cs){
+      if(!trip.sections.find(function(s){ return s.id === cs.id; })){
+        trip.sections.push({id:cs.id, icon:cs.icon, label:cs.label, items:[]});
+      }
+    });
+  }
+
   state.trip = trip;
-  state.activeActivities = {};
-  state.checkedItems = {};
-  state.collapsedSections = {};
-  trip.sections.forEach(function(s){ state.collapsedSections[s.id] = true; });
-  state.customItems = {};
-  state.itemBags = {};
-  (trip.defaultActivities||[]).forEach(function(id){ state.activeActivities[id] = true; });
+
+  if(saved){
+    state.activeActivities  = saved.activeActivities  || {};
+    state.checkedItems      = saved.checkedItems      || {};
+    state.collapsedSections = saved.collapsedSections || {};
+    state.customItems       = saved.customItems       || {};
+    state.itemBags          = saved.itemBags          || {};
+  } else {
+    state.activeActivities = {};
+    state.checkedItems = {};
+    state.collapsedSections = {};
+    trip.sections.forEach(function(s){ state.collapsedSections[s.id] = true; });
+    state.customItems = {};
+    state.itemBags = {};
+    (trip.defaultActivities||[]).forEach(function(id){ state.activeActivities[id] = true; });
+  }
 
   document.getElementById('list-emoji').innerHTML = trip.emoji;
   document.getElementById('list-title').textContent = trip.name;
@@ -1463,6 +1557,7 @@ function openTrip(trip){
     chip.addEventListener('click', function(){
       state.activeActivities[act.id] = !state.activeActivities[act.id];
       chip.classList.toggle('on');
+      saveState();
       renderPackSections();
       if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
     });
@@ -1530,6 +1625,7 @@ function startEdit(nameDiv, sec, item, isCustom){
     var ok = sec.id + '::' + oldName, nk = sec.id + '::' + newName;
     if(state.checkedItems[ok]){ state.checkedItems[nk] = true; delete state.checkedItems[ok]; }
     if(state.itemBags[ok]){ state.itemBags[nk] = state.itemBags[ok]; delete state.itemBags[ok]; }
+    saveState();
     renderPackSections();
     if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
     showToast('Renamed &#10003;');
@@ -1562,7 +1658,7 @@ function renderPackSections(){
     var hdr = document.createElement('div');
     hdr.className = 'sec-hdr';
     hdr.innerHTML = '<div class="sec-hdr-left"><span class="sec-icon">' + sec.icon + '</span><span class="sec-name">' + sec.label + '</span><span class="sec-count">' + secDone + '/' + all.length + '</span></div><span class="sec-chevron' + (collapsed ? '' : ' open') + '">&#9658;</span>';
-    hdr.addEventListener('click', function(){ state.collapsedSections[sec.id] = !collapsed; renderPackSections(); });
+    hdr.addEventListener('click', function(){ state.collapsedSections[sec.id] = !collapsed; saveState(); renderPackSections(); });
 
     var body = document.createElement('div');
     body.className = 'sec-body';
@@ -1596,6 +1692,7 @@ function renderPackSections(){
         el.querySelector('.check-box').addEventListener('click', function(e){
           e.stopPropagation();
           state.checkedItems[k] = !state.checkedItems[k];
+          saveState();
           renderPackSections();
         });
       })(key);
@@ -1607,6 +1704,7 @@ function renderPackSections(){
             e.stopPropagation();
             var b = btn.dataset.bag;
             state.itemBags[k] = (state.itemBags[k] === b) ? 'none' : b;
+            saveState();
             renderPackSections();
             if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
           });
@@ -1638,6 +1736,7 @@ function renderPackSections(){
           }
           var k = sid + '::' + iname;
           delete state.checkedItems[k]; delete state.itemBags[k];
+          saveState();
           renderPackSections();
           if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
           showToast('Item removed');
@@ -1694,6 +1793,7 @@ function addPackItem(){
     var added = 0;
     lines.forEach(function(line){ if(addOneItem(line, secId)) added++; });
     input.value = '';
+    saveState();
     renderPackSections();
     if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
     showToast(added + ' item' + (added !== 1 ? 's' : '') + ' added &#10003;');
@@ -1701,6 +1801,7 @@ function addPackItem(){
     var name = raw.trim();
     if(!addOneItem(name, secId)){ showToast('Already on your list'); return; }
     input.value = '';
+    saveState();
     renderPackSections();
     if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
     showToast('Added &#10003;');
