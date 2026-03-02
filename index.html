@@ -2,32 +2,41 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>PackWise</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
-
 /* ═══════════════════════════════════════════
-   TOKENS  —  list page (dark)
+   DESIGN TOKENS  —  warm ivory palette (full app)
 ═══════════════════════════════════════════ */
 :root {
-  --bg:        #111110;
-  --surf-1:    #171614;
-  --surf-2:    #1E1D1B;
-  --surf-3:    #252320;
-  --t1:        #F0EDE8;
-  --t2:        #8F8C86;
-  --t3:        #4A4845;
-  --gold:      #B8956A;
-  --gold-l:    rgba(184,149,106,0.14);
-  --gold-m:    rgba(184,149,106,0.28);
-  --ln:        rgba(255,255,255,0.07);
-  --ln2:       rgba(255,255,255,0.12);
+  /* Backgrounds */
+  --bg:        #F5F0E8;      /* warm ivory — page background   */
+  --surf-1:    #EDE8DF;      /* almond — card / input surfaces  */
+  --surf-2:    #E5DFD4;      /* slightly deeper surface on hover */
+  --surf-3:    #DDD7CB;      /* pressed / active surface        */
+
+  /* Text */
+  --t1:        #2C2620;      /* rich warm near-black            */
+  --t2:        #7A7268;      /* warm mid-tone                   */
+  --t3:        #A8A098;      /* quiet tertiary                  */
+
+  /* Accent — muted terracotta-gold */
+  --gold:      #9C7A4E;
+  --gold-l:    rgba(156,122,78,0.12);
+  --gold-m:    rgba(156,122,78,0.30);
+
+  /* Dividers */
+  --ln:        rgba(42,37,32,0.09);
+  --ln2:       rgba(42,37,32,0.15);
+
+  /* Bag assignment — warm, desaturated */
   --ba:        #7EA89F;
   --bb:        #8496BA;
   --bc:        #9E90C0;
+
   --r:         12px;
   --r-sm:      8px;
   --serif:     'Lora', 'Georgia', serif;
@@ -50,7 +59,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-button, input, select { font-family: inherit; }
+/* Prevent mobile zoom on all inputs — must be 16px+ */
+input, select, textarea {
+  font-family: inherit;
+  font-size: 16px;  /* iOS won't zoom if >= 16px */
+}
+button { font-family: inherit; }
 
 /* ═══════════════════════════════════════════
    KEYFRAMES
@@ -68,10 +82,6 @@ button, input, select { font-family: inherit; }
   65%  { transform:scale(1.25) rotate(4deg); opacity:1; }
   100% { transform:scale(1) rotate(0deg); opacity:1; }
 }
-@keyframes slideDown {
-  from { opacity:0; transform:translateY(-6px); }
-  to   { opacity:1; transform:translateY(0); }
-}
 
 /* ═══════════════════════════════════════════
    PAGE SYSTEM
@@ -80,21 +90,14 @@ button, input, select { font-family: inherit; }
 .page.active { display:block; animation:fadeIn 0.3s ease; }
 
 /* ═══════════════════════════════════════════════════════
-   HOME PAGE  —  WARM IVORY LUXURY POSTCARD THEME
+   HOME PAGE
 ═══════════════════════════════════════════════════════ */
-#page-home {
-  background: #F5F0E8;
-  color: #2C2620;
-  font-family: var(--serif);
-}
-
 .home-inner {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 40px 140px;
 }
 
-/* NAV */
 .nav {
   padding: 44px 0 0;
   display: flex;
@@ -109,31 +112,30 @@ button, input, select { font-family: inherit; }
 .logo-mark {
   width: 30px; height: 30px;
   border-radius: 6px;
-  border: 1px solid rgba(156,122,78,0.35);
+  border: 1px solid var(--gold-m);
   display: flex; align-items: center; justify-content: center;
   font-family: var(--serif);
   font-size: 13px;
-  color: #9C7A4E;
+  color: var(--gold);
   letter-spacing: -0.02em;
 }
 .logo-text {
   font-family: var(--serif);
   font-size: 17px;
   font-weight: 500;
-  color: #2C2620;
+  color: var(--t1);
   letter-spacing: -0.01em;
 }
-.logo-text em { font-style: normal; color: #9C7A4E; }
+.logo-text em { font-style: normal; color: var(--gold); }
 
-/* HERO */
 .hero {
-  padding: 100px 0 72px;
+  padding: 100px 0 48px;
   max-width: 580px;
 }
 .hero-overline {
   font-size: 10px;
   font-weight: 500;
-  color: #9C7A4E;
+  color: var(--gold);
   text-transform: uppercase;
   letter-spacing: 0.2em;
   margin-bottom: 28px;
@@ -145,24 +147,23 @@ button, input, select { font-family: inherit; }
   font-weight: 400;
   line-height: 1.04;
   letter-spacing: -0.025em;
-  color: #2C2620;
+  color: var(--t1);
   margin-bottom: 26px;
 }
-.hero-title em { font-style: italic; color: #9C7A4E; }
+.hero-title em { font-style: italic; color: var(--gold); }
 .hero-body {
   font-size: 15px;
   font-weight: 300;
-  color: #7A7268;
+  color: var(--t2);
   line-height: 1.75;
   max-width: 420px;
   font-family: var(--sans);
 }
 
-/* GRID EYEBROW */
 .grid-eyebrow {
   font-size: 10px;
   font-weight: 500;
-  color: #A09890;
+  color: var(--t3);
   text-transform: uppercase;
   letter-spacing: 0.18em;
   margin-bottom: 28px;
@@ -179,11 +180,10 @@ button, input, select { font-family: inherit; }
   background: transparent;
   border-radius: 0;
   overflow: visible;
-  margin-bottom: 110px;
+  margin-bottom: 0;
 }
-
 .trip-card {
-  background: #EDE8DF;
+  background: var(--surf-1);
   cursor: pointer;
   position: relative;
   text-align: left;
@@ -200,14 +200,8 @@ button, input, select { font-family: inherit; }
   box-shadow: 0 12px 56px rgba(42,37,32,0.14), 0 2px 8px rgba(42,37,32,0.08);
   transform: translateY(-3px);
 }
-.trip-card:active {
-  transform: scale(0.985) translateY(0);
-  transition-duration: 0.1s;
-}
+.trip-card:active { transform: scale(0.985) translateY(0); transition-duration: 0.1s; }
 
-/* ── CARD VISUAL ── JS renders: <div class="card-visual">[emoji]</div>
-   We use this as the full-bleed photo area.
-   Emoji is hidden; photo comes from a CSS background per theme.     */
 .card-visual {
   width: 100%;
   height: 200px;
@@ -216,25 +210,21 @@ button, input, select { font-family: inherit; }
   display: block;
   background-size: cover;
   background-position: center;
-  /* hide the emoji text from JS */
-  font-size: 0;
-  color: transparent;
-  line-height: 0;
+  font-size: 0; color: transparent; line-height: 0;
 }
-
-/* Warm stone overlay at ~40% to unify photos and add warmth */
+/* Warm almond overlay — reduced opacity so photos show through more richly */
 .card-visual::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: #EDE8DF;
-  opacity: 0.6;
+  background: var(--surf-1);
+  opacity: 0.38;           /* was 0.6 — richer, more visible photos */
   transition: opacity 0.3s;
   z-index: 1;
 }
-.trip-card:hover .card-visual::before { opacity: 0.48; }
+.trip-card:hover .card-visual::before { opacity: 0.25; }
 
-/* Per-theme destination photos (Unsplash) */
+/* Per-theme Unsplash photos */
 .theme-beach    .card-visual { background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=60'); }
 .theme-city     .card-visual { background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=60'); }
 .theme-hike     .card-visual { background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=60'); }
@@ -244,21 +234,18 @@ button, input, select { font-family: inherit; }
 .theme-backpack .card-visual { background-image: url('https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=600&q=60'); }
 .theme-wellness .card-visual { background-image: url('https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&q=60'); }
 
-/* card-glow is not needed */
 .card-glow { display: none; }
 
-/* ── CARD BODY ── */
 .card-body {
   padding: 24px 28px 30px;
   position: relative;
+  background: var(--surf-1);
 }
-/* thin terracotta-gold rule above the title */
 .card-body::before {
   content: '';
   display: block;
-  width: 24px;
-  height: 1px;
-  background: #9C7A4E;
+  width: 24px; height: 1px;
+  background: var(--gold);
   opacity: 0.6;
   margin-bottom: 16px;
 }
@@ -266,7 +253,7 @@ button, input, select { font-family: inherit; }
   font-family: var(--serif);
   font-size: 22px;
   font-weight: 400;
-  color: #2C2620;
+  color: var(--t1);
   letter-spacing: -0.02em;
   line-height: 1.15;
   margin-bottom: 10px;
@@ -274,22 +261,17 @@ button, input, select { font-family: inherit; }
 .card-desc {
   font-size: 12px;
   font-weight: 400;
-  color: #A09890;
+  color: var(--t3);
   line-height: 1.55;
   font-family: var(--sans);
   letter-spacing: 0.01em;
-  /* Show only the first sentence as the emotional subtitle */
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-/* Hide "Start packing →" arrow */
-.card-arrow {
-  display: none;
-}
+.card-arrow { display: none; }
 
-/* Staggered animation */
 .trip-card:nth-child(1){animation-delay:.04s}
 .trip-card:nth-child(2){animation-delay:.09s}
 .trip-card:nth-child(3){animation-delay:.14s}
@@ -300,27 +282,29 @@ button, input, select { font-family: inherit; }
 .trip-card:nth-child(8){animation-delay:.39s}
 
 /* ═══════════════════════════════════════════
-   HOME  ─  FEATURES
+   HOME — FEATURES
 ═══════════════════════════════════════════ */
 .features {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
   border-top: 1px solid var(--ln);
-  padding-top: 64px;
+  padding-top: 48px;
+  padding-bottom: 64px;
 }
 .feature { padding-right: 48px; }
 .feature-num {
   font-family: var(--serif);
   font-size: 32px;
   font-weight: 400;
-  color: var(--t3);
+  color: #C4B8A8;
   letter-spacing: -0.04em;
   margin-bottom: 16px;
   line-height: 1;
 }
 .feature-title {
-  font-size: 14px;
+  font-family: var(--serif);
+  font-size: 15px;
   font-weight: 500;
   color: var(--t1);
   margin-bottom: 8px;
@@ -331,31 +315,58 @@ button, input, select { font-family: inherit; }
   font-weight: 300;
   color: var(--t2);
   line-height: 1.65;
+  font-family: var(--sans);
 }
-
-/* ─ Override features colors for light home page ─ */
-#page-home .features {
-  border-top: 1px solid rgba(42,37,32,0.1);
-}
-#page-home .feature-num  { color: #C4B8A8; }
-#page-home .feature-title { color: #2C2620; font-family: var(--serif); font-weight: 500; font-size: 15px; }
-#page-home .feature-desc  { color: #7A7268; font-family: var(--sans); }
 
 /* ═══════════════════════════════════════════
-   LIST PAGE  ─  SHELL
+   LIST PAGE — SHELL
 ═══════════════════════════════════════════ */
+#page-list { background: var(--bg); }
 .list-layout {
   max-width: 960px;
   margin: 0 auto;
   padding: 0 32px 80px;
 }
+
+/* ── INSTRUCTIONAL BAR — compact, top of page ── */
+.list-hint-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 10px 0 10px;
+  border-bottom: 1px solid var(--ln);
+  margin-bottom: 0;
+}
+.hint-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--t3);
+  font-family: var(--sans);
+}
+.hint-swatch {
+  width: 14px; height: 14px;
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 7px; font-weight: 700;
+  flex-shrink: 0;
+}
+.hint-checked  { background: rgba(126,168,159,.18); border: 1px solid rgba(126,168,159,.35); color: var(--ba); }
+.hint-carry    { background: rgba(132,150,186,.18); border: 1px solid rgba(132,150,186,.35); color: var(--bb); }
+.hint-personal { background: rgba(158,144,192,.18); border: 1px solid rgba(158,144,192,.35); color: var(--bc); }
+.hint-sep { width: 1px; height: 14px; background: var(--ln2); flex-shrink: 0; }
+.hint-rename { font-size: 11px; color: var(--t3); font-weight: 300; }
+
 .topbar {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 36px 0 32px;
+  padding: 28px 0 20px;
   border-bottom: 1px solid var(--ln);
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   flex-wrap: wrap;
 }
 .back-btn {
@@ -385,6 +396,7 @@ button, input, select { font-family: inherit; }
   align-items: center;
   gap: 10px;
   letter-spacing: -0.015em;
+  color: var(--t1);
 }
 .trip-hero-meta {
   font-size: 12px;
@@ -393,12 +405,8 @@ button, input, select { font-family: inherit; }
   margin-top: 4px;
 }
 
-/* TABS — underline style */
-.tabs {
-  display: flex;
-  gap: 0;
-  flex-shrink: 0;
-}
+/* TABS */
+.tabs { display: flex; flex-shrink: 0; }
 .tab {
   padding: 8px 18px;
   border: none;
@@ -427,13 +435,10 @@ button, input, select { font-family: inherit; }
 .tab:hover:not(.active) { color: var(--t2); }
 
 .tab-panel { display: none; }
-.tab-panel.active {
-  display: block;
-  animation: fadeIn 0.2s ease;
-}
+.tab-panel.active { display: block; animation: fadeIn 0.2s ease; }
 
 /* ═══════════════════════════════════════════
-   LIST PAGE  ─  LAYOUT
+   LIST PAGE — LAYOUT
 ═══════════════════════════════════════════ */
 .content-cols {
   display: grid;
@@ -443,14 +448,13 @@ button, input, select { font-family: inherit; }
 }
 
 /* ═══════════════════════════════════════════
-   PROGRESS AREA
+   PROGRESS
 ═══════════════════════════════════════════ */
-/* Pills */
 .trip-tags-row {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 .pill {
   padding: 3px 10px;
@@ -462,19 +466,18 @@ button, input, select { font-family: inherit; }
   background: none;
   letter-spacing: 0.02em;
 }
-/* all pill variants → same quiet neutral style */
 .pill-accent,.pill-blue,.pill-green,.pill-orange,.pill-purple {
   color: var(--t2);
-  border-color: var(--ln);
-  background: rgba(255,255,255,0.03);
+  border-color: var(--ln2);
+  background: rgba(42,37,32,0.04);
 }
 
-.progress-card { margin-bottom: 36px; }
+.progress-card { margin-bottom: 32px; }
 .progress-header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 11px;
+  margin-bottom: 10px;
 }
 .progress-label {
   font-size: 11px;
@@ -522,13 +525,12 @@ button, input, select { font-family: inherit; }
   border-radius: 50%;
   background: var(--gold);
   opacity: 0.8;
-  transition: opacity 0.3s;
 }
 
 /* ═══════════════════════════════════════════
    ACTIVITIES DISCLOSURE
 ═══════════════════════════════════════════ */
-.activities-disclosure { margin-bottom: 32px; }
+.activities-disclosure { margin-bottom: 28px; }
 .disclosure-trigger {
   display: flex;
   align-items: center;
@@ -554,7 +556,6 @@ button, input, select { font-family: inherit; }
   font-family: var(--sans);
 }
 .disclosure-trigger.open .disclosure-icon { transform: rotate(90deg); }
-
 .disclosure-body {
   max-height: 0;
   overflow: hidden;
@@ -562,7 +563,6 @@ button, input, select { font-family: inherit; }
   transition: max-height 0.32s cubic-bezier(0.4,0,0.2,1), opacity 0.22s ease;
 }
 .disclosure-body.open { max-height: 160px; opacity: 1; }
-
 .chips-row {
   display: flex;
   flex-wrap: wrap;
@@ -570,7 +570,7 @@ button, input, select { font-family: inherit; }
   padding-top: 14px;
 }
 .chip-act {
-  padding: 6px 14px;
+  padding: 5px 14px;
   border-radius: 20px;
   border: 1px solid var(--ln2);
   background: none;
@@ -580,34 +580,33 @@ button, input, select { font-family: inherit; }
   cursor: pointer;
   transition: all 0.18s;
   user-select: none;
-  letter-spacing: 0.005em;
 }
-.chip-act:hover {
-  border-color: var(--t3);
-  color: var(--t2);
-  background: rgba(255,255,255,0.04);
-}
-.chip-act.on {
-  border-color: var(--gold-m);
-  color: var(--gold);
-  background: var(--gold-l);
-}
+.chip-act:hover { border-color: var(--t2); color: var(--t2); background: rgba(42,37,32,0.04); }
+.chip-act.on { border-color: var(--gold-m); color: var(--gold); background: var(--gold-l); }
 
 /* ═══════════════════════════════════════════
-   ADD ITEM
+   ADD ITEM  —  stable, no-zoom
 ═══════════════════════════════════════════ */
-.add-zone { margin-bottom: 32px; }
+.add-zone { margin-bottom: 28px; }
 .add-label {
   font-size: 11px;
   font-weight: 500;
   color: var(--t3);
   text-transform: uppercase;
   letter-spacing: 0.13em;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+}
+.add-hint {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--t3);
+  margin-bottom: 10px;
+  font-family: var(--sans);
 }
 .add-row {
   display: flex;
   gap: 8px;
+  align-items: stretch;
 }
 .add-input {
   flex: 1;
@@ -617,24 +616,30 @@ button, input, select { font-family: inherit; }
   border: 1px solid var(--ln2);
   background: var(--surf-1);
   color: var(--t1);
-  font-size: 14px;
+  font-size: 16px;   /* must be 16px+ to prevent iOS zoom */
   font-weight: 300;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  /* Reserve enough height so no layout shift when focused */
+  line-height: 1.4;
 }
-.add-input::placeholder { color: var(--t3); }
-.add-input:focus { border-color: var(--gold-m); }
+.add-input::placeholder { color: var(--t3); font-size: 14px; }
+.add-input:focus {
+  border-color: var(--gold-m);
+  box-shadow: 0 0 0 3px rgba(156,122,78,0.08);
+}
 .add-select {
   padding: 10px 10px;
   border-radius: var(--r-sm);
   border: 1px solid var(--ln2);
   background: var(--surf-1);
   color: var(--t2);
-  font-size: 13px;
+  font-size: 16px;   /* must be 16px+ to prevent iOS zoom */
   font-weight: 300;
   outline: none;
   cursor: pointer;
   flex-shrink: 0;
+  line-height: 1.4;
 }
 .add-select option { background: var(--surf-1); }
 .add-go {
@@ -651,52 +656,8 @@ button, input, select { font-family: inherit; }
   flex-shrink: 0;
   letter-spacing: 0.01em;
 }
-.add-go:hover { background: rgba(184,149,106,0.22); }
+.add-go:hover { background: rgba(156,122,78,0.20); }
 .add-go:active { transform: scale(0.97); }
-
-/* ═══════════════════════════════════════════
-   BAG LEGEND
-═══════════════════════════════════════════ */
-.bag-legend-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 22px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--ln);
-}
-.bag-legend-label {
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--t3);
-  letter-spacing: 0.03em;
-}
-.bag-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--t3);
-}
-.leg-swatch {
-  width: 15px; height: 15px;
-  border-radius: 3px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 8px; font-weight: 700;
-  flex-shrink: 0;
-}
-.leg-checked  { background: rgba(126,168,159,.15); border: 1px solid rgba(126,168,159,.3); color: var(--ba); }
-.leg-carry    { background: rgba(132,150,186,.15); border: 1px solid rgba(132,150,186,.3); color: var(--bb); }
-.leg-personal { background: rgba(158,144,192,.15); border: 1px solid rgba(158,144,192,.3); color: var(--bc); }
-.legend-hint {
-  font-size: 11px;
-  font-weight: 300;
-  color: var(--t3);
-  opacity: 0.7;
-  margin-left: auto;
-}
 
 /* ═══════════════════════════════════════════
    SECTION HEADERS
@@ -713,9 +674,8 @@ button, input, select { font-family: inherit; }
   transition: opacity 0.15s;
 }
 .sec-hdr:hover { opacity: 0.7; }
-
 .sec-hdr-left { display: flex; align-items: center; gap: 10px; }
-.sec-icon { font-size: 13px; opacity: 0.8; }
+.sec-icon { font-size: 13px; opacity: 0.7; }
 .sec-name {
   font-size: 13px;
   font-weight: 500;
@@ -734,13 +694,9 @@ button, input, select { font-family: inherit; }
   font-size: 9px;
   opacity: 0.5;
   transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
-  font-family: var(--sans);
 }
 .sec-chevron.open { transform: rotate(90deg); }
-.sec-body {
-  display: flex;
-  flex-direction: column;
-}
+.sec-body { display: flex; flex-direction: column; }
 
 /* ═══════════════════════════════════════════
    PACK ITEMS
@@ -754,23 +710,17 @@ button, input, select { font-family: inherit; }
   position: relative;
   animation: fadeUp 0.18s ease both;
 }
-/* Hide secondary controls by default; reveal on hover */
+/* Hide bag controls + delete by default; reveal on hover */
 .pack-item .bag-checks,
-.pack-item .edit-btn,
 .pack-item .del-btn {
   opacity: 0;
   transition: opacity 0.18s ease;
 }
 .pack-item:hover .bag-checks,
-.pack-item:hover .edit-btn,
 .pack-item:hover .del-btn,
 .pack-item:focus-within .bag-checks,
-.pack-item:focus-within .edit-btn,
-.pack-item:focus-within .del-btn {
-  opacity: 1;
-}
+.pack-item:focus-within .del-btn { opacity: 1; }
 
-/* "done" state */
 .pack-item.done { opacity: 0.35; }
 .pack-item.done .pack-name {
   text-decoration: line-through;
@@ -778,7 +728,6 @@ button, input, select { font-family: inherit; }
   text-decoration-color: var(--t3);
 }
 
-/* Custom item indicator */
 .pack-item.is-custom::before {
   content: '';
   position: absolute;
@@ -789,7 +738,7 @@ button, input, select { font-family: inherit; }
   opacity: 0.5;
 }
 
-/* CHECKBOX — circular, minimal */
+/* CHECKBOX */
 .check-box {
   width: 20px; height: 20px;
   border-radius: 50%;
@@ -801,11 +750,7 @@ button, input, select { font-family: inherit; }
   background: none;
 }
 .check-box:hover { border-color: var(--t3); transform: scale(1.08); }
-.pack-item.done .check-box {
-  background: var(--gold);
-  border-color: var(--gold);
-  transform: scale(1);
-}
+.pack-item.done .check-box { background: var(--gold); border-color: var(--gold); transform: scale(1); }
 .check-inner {
   color: var(--bg);
   font-size: 9px;
@@ -817,7 +762,6 @@ button, input, select { font-family: inherit; }
   animation: checkPop 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards;
 }
 
-/* Item text */
 .pack-content { flex: 1; min-width: 0; }
 .pack-name {
   font-size: 14px;
@@ -828,7 +772,6 @@ button, input, select { font-family: inherit; }
   cursor: text;
 }
 .pack-item:not(.done) .pack-name:hover {
-  color: var(--t1);
   text-decoration: underline;
   text-decoration-color: var(--t3);
   text-underline-offset: 3px;
@@ -841,14 +784,12 @@ button, input, select { font-family: inherit; }
   margin-top: 2px;
   line-height: 1.4;
 }
-
-/* Inline rename input */
 .pack-name-input {
   background: none;
   border: none;
   border-bottom: 1px solid var(--gold-m);
   color: var(--t1);
-  font-size: 14px;
+  font-size: 16px;   /* prevent iOS zoom */
   font-weight: 300;
   padding: 1px 2px;
   outline: none;
@@ -858,12 +799,7 @@ button, input, select { font-family: inherit; }
 }
 
 /* BAG CHECKMARKS */
-.bag-checks {
-  display: flex;
-  gap: 4px;
-  flex-shrink: 0;
-  align-items: center;
-}
+.bag-checks { display: flex; gap: 4px; flex-shrink: 0; align-items: center; }
 .bag-chk {
   width: 20px; height: 20px;
   border-radius: 4px;
@@ -878,22 +814,19 @@ button, input, select { font-family: inherit; }
   color: transparent;
   line-height: 1;
 }
-.bag-chk:hover { border-color: var(--t3); background: rgba(255,255,255,0.05); }
-.bag-chk.on-checked  { background: rgba(126,168,159,.18); border-color: var(--ba); color: var(--ba); }
-.bag-chk.on-carry    { background: rgba(132,150,186,.18); border-color: var(--bb); color: var(--bb); }
-.bag-chk.on-personal { background: rgba(158,144,192,.18); border-color: var(--bc); color: var(--bc); }
+.bag-chk:hover { border-color: var(--t3); background: rgba(42,37,32,0.06); }
+.bag-chk.on-checked  { background: rgba(126,168,159,.2); border-color: var(--ba); color: var(--ba); }
+.bag-chk.on-carry    { background: rgba(132,150,186,.2); border-color: var(--bb); color: var(--bb); }
+.bag-chk.on-personal { background: rgba(158,144,192,.2); border-color: var(--bc); color: var(--bc); }
 
-/* Edit and delete */
-.edit-btn {
-  display: none;
-}
+.edit-btn { display: none; }
 
 .del-btn {
   background: none; border: none; cursor: pointer;
   color: var(--t3); font-size: 15px; padding: 2px 3px;
   transition: color 0.15s; flex-shrink: 0; line-height: 1;
 }
-.del-btn:hover { color: rgba(196,80,80,0.65); }
+.del-btn:hover { color: rgba(180,60,60,0.65); }
 
 /* ═══════════════════════════════════════════
    SKIP / LEAVE BEHIND
@@ -938,14 +871,18 @@ button, input, select { font-family: inherit; }
   font-weight: 300;
   color: var(--t3);
   line-height: 1.7;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
   max-width: 520px;
 }
-.bag-view-cols { display: flex; flex-direction: column; gap: 1px; background: var(--ln); border-radius: var(--r); overflow: hidden; }
+.bag-view-cols {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--ln);
+  border-radius: var(--r);
+  overflow: hidden;
+}
 .bag-view-card { background: var(--surf-1); overflow: hidden; }
-
-/* bag-view-hdr rendered by JS has: bag-view-title, bag-view-badge, bag-view-limit */
-/* We override the JS class bag-view-name/bag-view-badge used in the bag tab with the JS render */
 .bag-view-hdr {
   display: flex;
   align-items: center;
@@ -953,7 +890,9 @@ button, input, select { font-family: inherit; }
   padding: 18px 22px 16px;
   gap: 10px;
   flex-wrap: wrap;
+  background: var(--surf-1);
 }
+.bag-view-hdr:hover { background: var(--surf-2); }
 .bag-view-title {
   display: flex;
   align-items: center;
@@ -964,8 +903,7 @@ button, input, select { font-family: inherit; }
   letter-spacing: -0.01em;
   font-family: var(--serif);
 }
-/* bag-view-badge = item count */
-.bag-view-badge {
+.bag-view-badge, .badge-checked, .badge-carry, .badge-personal {
   font-size: 13px;
   font-weight: 300;
   color: var(--t3);
@@ -974,17 +912,6 @@ button, input, select { font-family: inherit; }
   background: none;
   border: none;
   padding: 0;
-}
-/* override colored badge classes — unify */
-.badge-checked, .badge-carry, .badge-personal {
-  background: none;
-  border: none;
-  color: var(--t3);
-  padding: 0;
-  font-family: var(--serif);
-  font-size: 13px;
-  font-weight: 300;
-  letter-spacing: -0.02em;
 }
 .bag-view-limit {
   font-size: 11px;
@@ -1026,28 +953,29 @@ button, input, select { font-family: inherit; }
   bottom: 28px;
   left: 50%;
   transform: translateX(-50%) translateY(64px);
-  background: var(--surf-3);
-  color: var(--t2);
+  background: var(--t1);
+  color: var(--bg);
   padding: 9px 18px;
   border-radius: 20px;
   font-size: 13px;
-  font-weight: 300;
+  font-weight: 400;
   z-index: 9999;
-  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
   white-space: nowrap;
-  border: 1px solid var(--ln2);
   letter-spacing: 0.01em;
   pointer-events: none;
+  font-family: var(--sans);
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
 
 /* ═══════════════════════════════════════════
-   MOBILE
+   RESPONSIVE
 ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
   .content-cols { grid-template-columns: 1fr; gap: 0; }
   .features { grid-template-columns: 1fr; gap: 40px; }
   .trip-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .list-hint-bar { gap: 12px; }
 }
 @media (max-width: 640px) {
   .home-inner  { padding: 0 20px 80px; }
@@ -1059,18 +987,16 @@ button, input, select { font-family: inherit; }
   .card-name   { font-size: 19px; }
 
   .list-layout  { padding: 0 18px 60px; }
-  .topbar       { flex-direction: column; align-items: flex-start; gap: 14px; padding: 24px 0 22px; }
+  .topbar       { flex-direction: column; align-items: flex-start; gap: 12px; padding: 20px 0 16px; }
   .trip-hero-title { font-size: 18px; }
   .tabs         { width: 100%; }
   .tab          { flex: 1; text-align: center; padding: 8px 10px; font-size: 12px; }
+  .add-row      { flex-wrap: wrap; }
+  .add-input    { flex: 1 1 100%; }
+  .list-hint-bar { font-size: 11px; }
 
-  .add-row { flex-wrap: wrap; }
-  .add-input { flex: 1 1 100%; }
-
-  /* Always show item controls on mobile */
   .pack-item .bag-checks,
   .pack-item .del-btn { opacity: 1; }
-
   .bag-chk { width: 18px; height: 18px; }
   .bag-view-hdr { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
@@ -1088,16 +1014,11 @@ button, input, select { font-family: inherit; }
       <span class="logo-text">Pack<em>Wise</em></span>
     </a>
   </nav>
-
   <div class="hero">
     <div class="hero-overline">Smart packing</div>
     <h1 class="hero-title">Pack with<br><em>intention.</em></h1>
     <p class="hero-body">Tailored packing lists for every trip type. Assign items to bags as you go, then check them off as you pack.</p>
   </div>
-
-  <div class="grid-eyebrow">Destinations</div>
-  <div class="trip-grid" id="trip-grid"></div>
-
   <div class="features">
     <div class="feature">
       <div class="feature-num">01</div>
@@ -1107,7 +1028,7 @@ button, input, select { font-family: inherit; }
     <div class="feature">
       <div class="feature-num">02</div>
       <div class="feature-title">Edit anything</div>
-      <div class="feature-desc">Rename any item inline. Change &ldquo;4&ndash;5 swimsuits&rdquo; to &ldquo;6&rdquo; without deleting and re-adding.</div>
+      <div class="feature-desc">Click any item name to rename it inline. Paste a whole list to add multiple items at once.</div>
     </div>
     <div class="feature">
       <div class="feature-num">03</div>
@@ -1115,12 +1036,30 @@ button, input, select { font-family: inherit; }
       <div class="feature-desc">Context-aware tips on what you can safely skip for each destination type.</div>
     </div>
   </div>
+  <div class="grid-eyebrow">Destinations</div>
+  <div class="trip-grid" id="trip-grid"></div>
 </div>
 </div>
 
 <!-- LIST PAGE -->
 <div id="page-list" class="page">
 <div class="list-layout">
+
+  <!-- Instructional hint bar — compact, above topbar -->
+  <div class="list-hint-bar">
+    <span class="hint-item">
+      <span class="hint-swatch hint-checked">&#10003;</span>Checked bag
+    </span>
+    <span class="hint-item">
+      <span class="hint-swatch hint-carry">&#10003;</span>Carry-on
+    </span>
+    <span class="hint-item">
+      <span class="hint-swatch hint-personal">&#10003;</span>Personal item
+    </span>
+    <span class="hint-sep"></span>
+    <span class="hint-rename">Click any item name to rename &nbsp;&middot;&nbsp; Paste multiple lines to add in bulk</span>
+  </div>
+
   <div class="topbar">
     <button class="back-btn" id="back-btn">
       <span class="back-arrow">&#8592;</span>
@@ -1128,7 +1067,7 @@ button, input, select { font-family: inherit; }
     </button>
     <div class="trip-hero-info">
       <div class="trip-hero-title">
-        <span id="list-emoji"></span>
+        <span id="list-emoji" style="display:none"></span>
         <span id="list-title"></span>
       </div>
       <div class="trip-hero-meta" id="list-meta"></div>
@@ -1148,7 +1087,7 @@ button, input, select { font-family: inherit; }
           <div class="trip-tags-row" id="list-pills"></div>
           <div class="progress-header">
             <span class="progress-label">Progress</span>
-            <span class="progress-nums"><span id="cnt-done">0</span><span class="denom">of <span id="cnt-total">0</span> packed</span></span>
+            <span class="progress-nums"><span id="cnt-done">0</span><span class="denom">&#160;of <span id="cnt-total">0</span> packed</span></span>
           </div>
           <div class="pbar"><div class="pbar-fill" id="pbar-fill" style="width:0%"></div></div>
         </div>
@@ -1167,20 +1106,12 @@ button, input, select { font-family: inherit; }
         <!-- Add item -->
         <div class="add-zone">
           <div class="add-label">Add item</div>
+          <div class="add-hint">Paste a multi-line list to add several items at once.</div>
           <div class="add-row">
-            <input class="add-input" id="add-input" type="text" placeholder="Item name&#8230;" />
+            <input class="add-input" id="add-input" type="text" placeholder="Item name (or paste a list)&#8230;" autocomplete="off" autocorrect="off" />
             <select class="add-select" id="add-section-sel"></select>
             <button class="add-go" id="add-go-btn">Add</button>
           </div>
-        </div>
-
-        <!-- Bag legend -->
-        <div class="bag-legend-row">
-          <span class="bag-legend-label">Assign to bag</span>
-          <span class="bag-legend-item"><span class="leg-swatch leg-checked">&#10003;</span>Checked</span>
-          <span class="bag-legend-item"><span class="leg-swatch leg-carry">&#10003;</span>Carry-on</span>
-          <span class="bag-legend-item"><span class="leg-swatch leg-personal">&#10003;</span>Personal</span>
-          <span class="legend-hint">click name to rename &nbsp;&#215; remove</span>
         </div>
 
         <div id="pack-sections"></div>
@@ -1195,7 +1126,7 @@ button, input, select { font-family: inherit; }
 
   <!-- BAG SUMMARY TAB -->
   <div class="tab-panel" id="tab-bags">
-    <p class="bag-view-intro">Items you&#8217;ve assigned using the bag checkmarks on your packing list, sorted by bag. Tap a checkmark again to unassign.</p>
+    <p class="bag-view-intro">Items you&#8217;ve assigned using the bag checkmarks, sorted by bag. Tap a checkmark again to unassign.</p>
     <div class="bag-view-cols" id="bag-view-cols"></div>
   </div>
 </div>
@@ -1538,9 +1469,28 @@ function openTrip(trip){
     chipsEl.appendChild(chip);
   });
 
-  document.getElementById('add-section-sel').innerHTML = trip.sections.map(function(s){
-    return '<option value="' + s.id + '">' + s.label + '</option>';
-  }).join('');
+  var sections = trip.sections;
+  function rebuildSectionSel(){
+    document.getElementById('add-section-sel').innerHTML =
+      sections.map(function(s){ return '<option value="' + s.id + '">' + s.label + '</option>'; }).join('') +
+      '<option value="__new__">+ New category…</option>';
+  }
+  rebuildSectionSel();
+
+  document.getElementById('add-section-sel').addEventListener('change', function(){
+    if(this.value !== '__new__') return;
+    var name = prompt('New category name:');
+    if(!name || !name.trim()){ this.value = sections[0].id; return; }
+    name = name.trim();
+    var id = 'custom_' + Date.now();
+    var newSec = {id:id, icon:'&#9998;', label:name, items:[]};
+    state.trip.sections.push(newSec);
+    if(!state.customItems[id]) state.customItems[id] = [];
+    rebuildSectionSel();
+    this.value = id;
+    renderPackSections();
+    showToast('Category “' + name + '” created');
+  });
 
   renderPackSections();
   renderSkip();
@@ -1720,23 +1670,41 @@ function renderSkip(){
 document.getElementById('add-go-btn').addEventListener('click', addPackItem);
 document.getElementById('add-input').addEventListener('keydown', function(e){ if(e.key === 'Enter') addPackItem(); });
 
-function addPackItem(){
-  var input = document.getElementById('add-input');
-  var sel = document.getElementById('add-section-sel');
-  var name = input.value.trim();
-  if(!name){ input.focus(); return; }
-  var secId = sel.value;
+function addOneItem(name, secId){
+  if(!name) return false;
   if(!state.customItems[secId]) state.customItems[secId] = [];
   var sec = state.trip.sections.find(function(s){ return s.id === secId; });
   var exists = (state.customItems[secId]||[]).some(function(i){ return i.n.toLowerCase() === name.toLowerCase(); }) ||
     (sec && sec.items.some(function(i){ return i.n.toLowerCase() === name.toLowerCase(); }));
-  if(exists){ showToast('Already on your list!'); return; }
-  state.customItems[secId].push({n:name, note:'Added by you', p:'med', custom:true});
-  input.value = '';
+  if(exists) return false;
+  state.customItems[secId].push({n:name, note:'', p:'med', custom:true});
   state.collapsedSections[secId] = false;
-  renderPackSections();
-  if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
-  showToast('Added &#10003;');
+  return true;
+}
+
+function addPackItem(){
+  var input = document.getElementById('add-input');
+  var sel   = document.getElementById('add-section-sel');
+  var raw   = input.value;
+  if(!raw.trim()){ input.focus(); return; }
+  var secId = sel.value;
+  // Multi-line paste: split on newlines and/or commas at line start
+  var lines = raw.split(/[\n\r]+/).map(function(l){ return l.trim(); }).filter(Boolean);
+  if(lines.length > 1){
+    var added = 0;
+    lines.forEach(function(line){ if(addOneItem(line, secId)) added++; });
+    input.value = '';
+    renderPackSections();
+    if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
+    showToast(added + ' item' + (added !== 1 ? 's' : '') + ' added &#10003;');
+  } else {
+    var name = raw.trim();
+    if(!addOneItem(name, secId)){ showToast('Already on your list'); return; }
+    input.value = '';
+    renderPackSections();
+    if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
+    showToast('Added &#10003;');
+  }
 }
 
 /* ======================================================
