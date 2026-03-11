@@ -9,34 +9,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════
-   DESIGN TOKENS  —  warm ivory palette (full app)
+   DESIGN TOKENS
 ═══════════════════════════════════════════ */
 :root {
-  /* Backgrounds */
-  --bg:        #F5F0E8;      /* warm ivory — page background   */
-  --surf-1:    #EDE8DF;      /* almond — card / input surfaces  */
-  --surf-2:    #E5DFD4;      /* slightly deeper surface on hover */
-  --surf-3:    #DDD7CB;      /* pressed / active surface        */
-
-  /* Text */
-  --t1:        #2C2620;      /* rich warm near-black            */
-  --t2:        #7A7268;      /* warm mid-tone                   */
-  --t3:        #A8A098;      /* quiet tertiary                  */
-
-  /* Accent — muted terracotta-gold */
+  --bg:        #F5F0E8;
+  --surf-1:    #EDE8DF;
+  --surf-2:    #E5DFD4;
+  --surf-3:    #DDD7CB;
+  --t1:        #2C2620;
+  --t2:        #7A7268;
+  --t3:        #A8A098;
   --gold:      #9C7A4E;
   --gold-l:    rgba(156,122,78,0.12);
   --gold-m:    rgba(156,122,78,0.30);
-
-  /* Dividers */
   --ln:        rgba(42,37,32,0.09);
   --ln2:       rgba(42,37,32,0.15);
-
-  /* Bag assignment — warm, desaturated */
   --ba:        #7EA89F;
   --bb:        #8496BA;
   --bc:        #9E90C0;
-
   --r:         12px;
   --r-sm:      8px;
   --serif:     'Lora', 'Georgia', serif;
@@ -59,29 +49,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* Prevent mobile zoom on all inputs — must be 16px+ */
-input, select, textarea {
-  font-family: inherit;
-  font-size: 16px;  /* iOS won't zoom if >= 16px */
-}
+input, select, textarea { font-family: inherit; font-size: 16px; }
 button { font-family: inherit; }
 
 /* ═══════════════════════════════════════════
    KEYFRAMES
 ═══════════════════════════════════════════ */
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(14px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity:0; }
-  to   { opacity:1; }
-}
+@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
 @keyframes checkPop {
-  0%   { transform:scale(0) rotate(-20deg); opacity:0; }
-  65%  { transform:scale(1.25) rotate(4deg); opacity:1; }
-  100% { transform:scale(1) rotate(0deg); opacity:1; }
+  0%  {transform:scale(0) rotate(-20deg);opacity:0}
+  65% {transform:scale(1.25) rotate(4deg);opacity:1}
+  100%{transform:scale(1) rotate(0deg);opacity:1}
 }
+@keyframes slideDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
 
 /* ═══════════════════════════════════════════
    PAGE SYSTEM
@@ -89,200 +70,146 @@ button { font-family: inherit; }
 .page { display:none; min-height:100vh; }
 .page.active { display:block; animation:fadeIn 0.3s ease; }
 
-/* ═══════════════════════════════════════════════════════
-   HOME PAGE
-═══════════════════════════════════════════════════════ */
-.home-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 40px 140px;
-}
+/* ═══════════════════════════════════════════
+   HOME — SHELL
+═══════════════════════════════════════════ */
+.home-inner { max-width:1100px; margin:0 auto; padding:0 40px 140px; }
 
-.nav {
-  padding: 44px 0 0;
-  display: flex;
-  align-items: center;
-}
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-}
+.nav { padding:44px 0 0; display:flex; align-items:center; }
+.logo { display:flex; align-items:center; gap:14px; text-decoration:none; }
 .logo-mark {
-  width: 30px; height: 30px;
-  border-radius: 6px;
-  border: 1px solid var(--gold-m);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--serif);
-  font-size: 13px;
-  color: var(--gold);
-  letter-spacing: -0.02em;
+  width:30px; height:30px; border-radius:6px;
+  border:1px solid var(--gold-m);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--serif); font-size:13px; color:var(--gold); letter-spacing:-0.02em;
 }
-.logo-text {
-  font-family: var(--serif);
-  font-size: 17px;
-  font-weight: 500;
-  color: var(--t1);
-  letter-spacing: -0.01em;
-}
-.logo-text em { font-style: normal; color: var(--gold); }
+.logo-text { font-family:var(--serif); font-size:17px; font-weight:500; color:var(--t1); letter-spacing:-0.01em; }
+.logo-text em { font-style:normal; color:var(--gold); }
 
-.hero {
-  padding: 100px 0 48px;
-  max-width: 580px;
-}
+/* HERO */
+.hero { padding:100px 0 48px; max-width:580px; }
 .hero-overline {
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  margin-bottom: 28px;
-  font-family: var(--sans);
+  font-size:10px; font-weight:500; color:var(--gold);
+  text-transform:uppercase; letter-spacing:0.2em; margin-bottom:28px; font-family:var(--sans);
 }
 .hero-title {
-  font-family: var(--serif);
-  font-size: clamp(50px, 6.5vw, 72px);
-  font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: -0.025em;
-  color: var(--t1);
-  margin-bottom: 26px;
+  font-family:var(--serif); font-size:clamp(50px,6.5vw,72px);
+  font-weight:400; line-height:1.04; letter-spacing:-0.025em; color:var(--t1); margin-bottom:26px;
 }
-.hero-title em { font-style: italic; color: var(--gold); }
-.hero-body {
-  font-size: 15px;
-  font-weight: 300;
-  color: var(--t2);
-  line-height: 1.75;
-  max-width: 420px;
-  font-family: var(--sans);
-}
+.hero-title em { font-style:italic; color:var(--gold); }
+.hero-body { font-size:15px; font-weight:300; color:var(--t2); line-height:1.75; max-width:420px; font-family:var(--sans); }
 
-.grid-eyebrow {
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--t3);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  margin-bottom: 28px;
-  font-family: var(--sans);
+/* FEATURES STRIP */
+.features {
+  display:flex; flex-direction:row; gap:0;
+  border-top:1px solid var(--ln); border-bottom:1px solid var(--ln);
+  padding:20px 0; margin-bottom:56px;
 }
+.feature { flex:1; padding:0 32px 0 0; border-right:1px solid var(--ln); margin-right:32px; }
+.feature:last-child { border-right:none; margin-right:0; padding-right:0; }
+.feature-title {
+  font-family:var(--sans); font-size:12px; font-weight:500; color:var(--t1);
+  margin-bottom:4px; letter-spacing:0.02em; text-transform:uppercase;
+}
+.feature-desc { font-size:12px; font-weight:300; color:var(--t3); line-height:1.55; font-family:var(--sans); }
+
+/* SECTION EYEBROW */
+.grid-eyebrow {
+  font-size:10px; font-weight:500; color:var(--t3);
+  text-transform:uppercase; letter-spacing:0.18em; margin-bottom:28px; font-family:var(--sans);
+}
+.section-eyebrow-row {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:24px;
+}
+.section-eyebrow-row .grid-eyebrow { margin-bottom:0; }
 
 /* ═══════════════════════════════════════════
-   POSTCARD GRID
+   POSTCARD GRID (templates + saved trips)
 ═══════════════════════════════════════════ */
 .trip-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  background: transparent;
-  border-radius: 0;
-  overflow: visible;
-  margin-bottom: 0;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:20px; background:transparent; border-radius:0; overflow:visible; margin-bottom:0;
 }
 .trip-card {
-  background: var(--surf-1);
-  cursor: pointer;
-  position: relative;
-  text-align: left;
-  border: none;
-  padding: 0;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 32px rgba(42,37,32,0.09), 0 1px 4px rgba(42,37,32,0.06);
-  transition: box-shadow 0.3s ease, transform 0.25s cubic-bezier(0.4,0,0.2,1);
-  animation: fadeUp 0.55s ease both;
-  outline: none;
+  background:var(--surf-1); cursor:pointer; position:relative;
+  text-align:left; border:none; padding:0; border-radius:10px; overflow:hidden;
+  box-shadow:0 4px 32px rgba(42,37,32,0.09),0 1px 4px rgba(42,37,32,0.06);
+  transition:box-shadow 0.3s ease,transform 0.25s cubic-bezier(0.4,0,0.2,1);
+  animation:fadeUp 0.55s ease both; outline:none;
 }
 .trip-card:hover {
-  box-shadow: 0 12px 56px rgba(42,37,32,0.14), 0 2px 8px rgba(42,37,32,0.08);
-  transform: translateY(-3px);
+  box-shadow:0 12px 56px rgba(42,37,32,0.14),0 2px 8px rgba(42,37,32,0.08);
+  transform:translateY(-3px);
 }
-.trip-card:active { transform: scale(0.985) translateY(0); transition-duration: 0.1s; }
+.trip-card:active { transform:scale(0.985) translateY(0); transition-duration:0.1s; }
 
 .card-visual {
-  width: 100%;
-  height: 200px;
-  position: relative;
-  overflow: hidden;
-  display: block;
-  background-size: cover;
-  background-position: center;
-  font-size: 0; color: transparent; line-height: 0;
+  width:100%; height:200px; position:relative; overflow:hidden; display:block;
+  background-size:cover; background-position:center;
+  font-size:0; color:transparent; line-height:0;
 }
-/* Warm almond overlay — reduced opacity so photos show through more richly */
 .card-visual::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--surf-1);
-  opacity: 0.38;           /* was 0.6 — richer, more visible photos */
-  transition: opacity 0.3s;
-  z-index: 1;
+  content:''; position:absolute; inset:0;
+  background:var(--surf-1); opacity:0.38; transition:opacity 0.3s; z-index:1;
 }
-.trip-card:hover .card-visual::before { opacity: 0.25; }
+.trip-card:hover .card-visual::before { opacity:0.25; }
 
-/* Per-theme Unsplash photos */
-.theme-beach    .card-visual { background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=60'); }
-.theme-city     .card-visual { background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=60'); }
-.theme-hike     .card-visual { background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=60'); }
-.theme-ski      .card-visual { background-image: url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600&q=60'); }
-.theme-cruise   .card-visual { background-image: url('https://images.unsplash.com/photo-1548574505-5e239809ee19?w=600&q=60'); }
-.theme-safari   .card-visual { background-image: url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=60'); }
-.theme-backpack .card-visual { background-image: url('https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=600&q=60'); }
-.theme-wellness .card-visual { background-image: url('https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&q=60'); }
+/* Saved trip cards — slightly warmer tint */
+.trip-card.is-saved-trip .card-visual::before { background:#E8E0D5; opacity:0.45; }
+.trip-card.is-saved-trip:hover .card-visual::before { opacity:0.30; }
 
-.card-glow { display: none; }
+.theme-beach    .card-visual { background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=60'); }
+.theme-city     .card-visual { background-image:url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=60'); }
+.theme-hike     .card-visual { background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=60'); }
+.theme-ski      .card-visual { background-image:url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=600&q=60'); }
+.theme-cruise   .card-visual { background-image:url('https://images.unsplash.com/photo-1548574505-5e239809ee19?w=600&q=60'); }
+.theme-safari   .card-visual { background-image:url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=60'); }
+.theme-backpack .card-visual { background-image:url('https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=600&q=60'); }
+.theme-wellness .card-visual { background-image:url('https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&q=60'); }
 
-.card-body {
-  padding: 24px 28px 30px;
-  position: relative;
-  background: var(--surf-1);
-}
+.card-glow { display:none; }
+
+.card-body { padding:24px 28px 30px; position:relative; background:var(--surf-1); }
 .card-body::before {
-  content: '';
-  display: block;
-  width: 24px; height: 1px;
-  background: var(--gold);
-  opacity: 0.6;
-  margin-bottom: 16px;
+  content:''; display:block; width:24px; height:1px;
+  background:var(--gold); opacity:0.6; margin-bottom:16px;
 }
 .card-name {
-  font-family: var(--serif);
-  font-size: 22px;
-  font-weight: 400;
-  color: var(--t1);
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin-bottom: 10px;
+  font-family:var(--serif); font-size:22px; font-weight:400;
+  color:var(--t1); letter-spacing:-0.02em; line-height:1.15; margin-bottom:10px;
 }
 .card-desc {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--t3);
-  line-height: 1.55;
-  font-family: var(--sans);
-  letter-spacing: 0.01em;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-size:12px; font-weight:400; color:var(--t3);
+  line-height:1.55; font-family:var(--sans); letter-spacing:0.01em;
+  display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden;
 }
-.card-arrow { display: none; }
+.card-arrow { display:none; }
 .card-progress {
-  display: inline-block;
-  margin-top: 12px;
-  font-size: 10px;
-  font-weight: 500;
-  font-family: var(--sans);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--gold);
-  opacity: 0.8;
+  display:inline-block; margin-top:12px;
+  font-size:10px; font-weight:500; font-family:var(--sans);
+  text-transform:uppercase; letter-spacing:0.14em; color:var(--gold); opacity:0.8;
 }
 
+/* Saved trip card actions (delete) */
+.card-actions {
+  position:absolute; top:10px; right:10px; z-index:10;
+  display:flex; gap:6px; opacity:0; transition:opacity 0.18s;
+}
+.trip-card:hover .card-actions { opacity:1; }
+.card-action-btn {
+  width:28px; height:28px; border-radius:50%; border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; transition:all 0.15s;
+}
+.card-del-btn {
+  background:rgba(255,255,255,0.85); color:var(--t3);
+  backdrop-filter:blur(4px);
+}
+.card-del-btn:hover { background:rgba(200,80,80,0.15); color:rgba(180,60,60,0.8); }
+
+/* stagger animations */
 .trip-card:nth-child(1){animation-delay:.04s}
 .trip-card:nth-child(2){animation-delay:.09s}
 .trip-card:nth-child(3){animation-delay:.14s}
@@ -293,732 +220,367 @@ button { font-family: inherit; }
 .trip-card:nth-child(8){animation-delay:.39s}
 
 /* ═══════════════════════════════════════════
-   HOME — FEATURES
+   MY TRIPS — EMPTY STATE
 ═══════════════════════════════════════════ */
-.features {
-  display: flex;
-  flex-direction: row;
-  gap: 0;
-  border-top: 1px solid var(--ln);
-  border-bottom: 1px solid var(--ln);
-  padding: 20px 0;
-  margin-bottom: 56px;
+.my-trips-section { margin-bottom:80px; }
+.my-trips-empty {
+  padding:40px 0 20px;
+  font-family:var(--serif); font-size:16px; font-style:italic;
+  color:var(--t3); text-align:left;
 }
-.feature {
-  flex: 1;
-  padding: 0 32px 0 0;
-  border-right: 1px solid var(--ln);
-  margin-right: 32px;
+
+/* ═══════════════════════════════════════════
+   NAME TRIP MODAL
+═══════════════════════════════════════════ */
+.modal-overlay {
+  position:fixed; inset:0; z-index:1000;
+  background:rgba(42,37,32,0.35); backdrop-filter:blur(6px);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity 0.25s ease;
 }
-.feature:last-child {
-  border-right: none;
-  margin-right: 0;
-  padding-right: 0;
+.modal-overlay.open { opacity:1; pointer-events:all; }
+.modal {
+  background:var(--bg); border-radius:16px;
+  padding:40px 44px 36px; max-width:440px; width:90%;
+  box-shadow:0 24px 80px rgba(42,37,32,0.18);
+  transform:translateY(12px); transition:transform 0.25s ease;
+  animation:none;
 }
-.feature-title {
-  font-family: var(--sans);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--t1);
-  margin-bottom: 4px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+.modal-overlay.open .modal { transform:translateY(0); }
+.modal-overline {
+  font-size:10px; font-weight:500; color:var(--gold);
+  text-transform:uppercase; letter-spacing:0.2em; margin-bottom:12px; font-family:var(--sans);
 }
-.feature-desc {
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--t3);
-  line-height: 1.55;
-  font-family: var(--sans);
+.modal-title {
+  font-family:var(--serif); font-size:26px; font-weight:400;
+  color:var(--t1); letter-spacing:-0.02em; line-height:1.15; margin-bottom:8px;
 }
+.modal-template-label {
+  font-size:12px; font-weight:300; color:var(--t3); font-family:var(--sans); margin-bottom:28px;
+}
+.modal-label {
+  font-size:11px; font-weight:500; color:var(--t3);
+  text-transform:uppercase; letter-spacing:0.12em; margin-bottom:10px; font-family:var(--sans);
+  display:block;
+}
+.modal-input {
+  width:100%; padding:12px 16px;
+  border-radius:var(--r-sm); border:1.5px solid var(--ln2);
+  background:var(--surf-1); color:var(--t1);
+  font-size:16px; font-weight:400; font-family:var(--serif);
+  outline:none; transition:border-color 0.2s, box-shadow 0.2s;
+  letter-spacing:-0.01em;
+}
+.modal-input:focus { border-color:var(--gold-m); box-shadow:0 0 0 3px rgba(156,122,78,0.1); }
+.modal-input::placeholder { color:var(--t3); font-family:var(--sans); font-size:14px; font-weight:300; }
+.modal-actions { display:flex; gap:10px; margin-top:24px; }
+.modal-btn-primary {
+  flex:1; padding:12px 20px;
+  border-radius:var(--r-sm); border:none;
+  background:var(--t1); color:var(--bg);
+  font-size:13px; font-weight:500; cursor:pointer;
+  transition:all 0.18s; letter-spacing:0.01em;
+}
+.modal-btn-primary:hover { background:#1A1610; }
+.modal-btn-cancel {
+  padding:12px 20px;
+  border-radius:var(--r-sm); border:1px solid var(--ln2);
+  background:none; color:var(--t3);
+  font-size:13px; font-weight:400; cursor:pointer;
+  transition:all 0.18s;
+}
+.modal-btn-cancel:hover { border-color:var(--t3); color:var(--t2); }
 
 /* ═══════════════════════════════════════════
    LIST PAGE — SHELL
 ═══════════════════════════════════════════ */
-#page-list { background: var(--bg); }
-.list-layout {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 32px 80px;
-}
+#page-list { background:var(--bg); }
+.list-layout { max-width:960px; margin:0 auto; padding:0 32px 80px; }
 
-/* ── INSTRUCTIONAL BAR — compact, top of page ── */
 .list-hint-bar {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  padding: 10px 0 10px;
-  border-bottom: 1px solid var(--ln);
-  margin-bottom: 0;
+  display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+  padding:10px 0; border-bottom:1px solid var(--ln);
 }
 .hint-item {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--t3);
-  font-family: var(--sans);
+  display:flex; align-items:center; gap:7px;
+  font-size:12px; font-weight:300; color:var(--t3); font-family:var(--sans);
 }
 .hint-swatch {
-  width: 14px; height: 14px;
-  border-radius: 3px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 7px; font-weight: 700;
-  flex-shrink: 0;
+  width:14px; height:14px; border-radius:3px;
+  display:flex; align-items:center; justify-content:center; font-size:7px; font-weight:700; flex-shrink:0;
 }
-.hint-checked  { background: rgba(126,168,159,.18); border: 1px solid rgba(126,168,159,.35); color: var(--ba); }
-.hint-carry    { background: rgba(132,150,186,.18); border: 1px solid rgba(132,150,186,.35); color: var(--bb); }
-.hint-personal { background: rgba(158,144,192,.18); border: 1px solid rgba(158,144,192,.35); color: var(--bc); }
-.hint-sep { width: 1px; height: 14px; background: var(--ln2); flex-shrink: 0; }
-.hint-rename { font-size: 11px; color: var(--t3); font-weight: 300; }
+.hint-checked  { background:rgba(126,168,159,.18); border:1px solid rgba(126,168,159,.35); color:var(--ba); }
+.hint-carry    { background:rgba(132,150,186,.18); border:1px solid rgba(132,150,186,.35); color:var(--bb); }
+.hint-personal { background:rgba(158,144,192,.18); border:1px solid rgba(158,144,192,.35); color:var(--bc); }
+.hint-sep { width:1px; height:14px; background:var(--ln2); flex-shrink:0; }
+.hint-rename { font-size:11px; color:var(--t3); font-weight:300; }
 
 .topbar {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 28px 0 20px;
-  border-bottom: 1px solid var(--ln);
-  margin-bottom: 32px;
-  flex-wrap: wrap;
+  display:flex; align-items:center; gap:20px;
+  padding:28px 0 20px; border-bottom:1px solid var(--ln); margin-bottom:32px; flex-wrap:wrap;
 }
 .back-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: none;
-  border: none;
-  color: var(--t3);
-  font-size: 13px;
-  font-weight: 400;
-  cursor: pointer;
-  padding: 0;
-  transition: color 0.18s;
-  flex-shrink: 0;
-  letter-spacing: 0.01em;
+  display:flex; align-items:center; gap:6px;
+  background:none; border:none; color:var(--t3); font-size:13px;
+  font-weight:400; cursor:pointer; padding:0; transition:color 0.18s; flex-shrink:0;
 }
-.back-btn:hover { color: var(--t2); }
-.back-arrow { opacity: 0.6; }
+.back-btn:hover { color:var(--t2); }
+.back-arrow { opacity:0.6; }
 
-.trip-hero-info { flex: 1; min-width: 0; }
+.trip-hero-info { flex:1; min-width:0; }
 .trip-hero-title {
-  font-family: var(--serif);
-  font-size: 21px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  letter-spacing: -0.015em;
-  color: var(--t1);
+  font-family:var(--serif); font-size:21px; font-weight:500;
+  display:flex; align-items:center; gap:10px; letter-spacing:-0.015em; color:var(--t1);
 }
-.trip-hero-meta {
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--t3);
-  margin-top: 4px;
-}
+.trip-hero-meta { font-size:12px; font-weight:300; color:var(--t3); margin-top:4px; }
 
 /* TABS */
-.tabs { display: flex; flex-shrink: 0; }
+.tabs { display:flex; flex-shrink:0; }
 .tab {
-  padding: 8px 18px;
-  border: none;
-  background: none;
-  color: var(--t3);
-  font-size: 13px;
-  font-weight: 400;
-  cursor: pointer;
-  position: relative;
-  transition: color 0.18s;
-  letter-spacing: 0.005em;
-  white-space: nowrap;
+  padding:8px 18px; border:none; background:none; color:var(--t3);
+  font-size:13px; font-weight:400; cursor:pointer;
+  position:relative; transition:color 0.18s; letter-spacing:0.005em; white-space:nowrap;
 }
 .tab::after {
-  content: '';
-  position: absolute;
-  bottom: -1px; left: 0; right: 0;
-  height: 1px;
-  background: var(--gold);
-  transform: scaleX(0);
-  transition: transform 0.24s cubic-bezier(0.4,0,0.2,1);
-  transform-origin: left;
+  content:''; position:absolute; bottom:-1px; left:0; right:0;
+  height:1px; background:var(--gold); transform:scaleX(0);
+  transition:transform 0.24s cubic-bezier(0.4,0,0.2,1); transform-origin:left;
 }
-.tab.active { color: var(--t1); }
-.tab.active::after { transform: scaleX(1); }
-.tab:hover:not(.active) { color: var(--t2); }
-
-.tab-panel { display: none; }
-.tab-panel.active { display: block; animation: fadeIn 0.2s ease; }
+.tab.active { color:var(--t1); }
+.tab.active::after { transform:scaleX(1); }
+.tab:hover:not(.active) { color:var(--t2); }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; animation:fadeIn 0.2s ease; }
 
 /* ═══════════════════════════════════════════
    LIST PAGE — LAYOUT
 ═══════════════════════════════════════════ */
-.content-cols {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 56px;
-  align-items: start;
-}
+.content-cols { display:grid; grid-template-columns:1fr 300px; gap:56px; align-items:start; }
 
-/* ═══════════════════════════════════════════
-   PROGRESS
-═══════════════════════════════════════════ */
-.trip-tags-row {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
-}
-.pill {
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--t3);
-  border: 1px solid var(--ln2);
-  background: none;
-  letter-spacing: 0.02em;
-}
-.pill-accent,.pill-blue,.pill-green,.pill-orange,.pill-purple {
-  color: var(--t2);
-  border-color: var(--ln2);
-  background: rgba(42,37,32,0.04);
-}
+/* PROGRESS */
+.trip-tags-row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:24px; }
+.pill { padding:3px 10px; border-radius:20px; font-size:11px; font-weight:400; color:var(--t3); border:1px solid var(--ln2); background:none; letter-spacing:0.02em; }
+.pill-accent,.pill-blue,.pill-green,.pill-orange,.pill-purple { color:var(--t2); border-color:var(--ln2); background:rgba(42,37,32,0.04); }
 
-.progress-card { margin-bottom: 32px; }
-.progress-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-.progress-label {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--t3);
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
-}
-.progress-nums {
-  font-family: var(--serif);
-  font-size: 24px;
-  font-weight: 400;
-  color: var(--t1);
-  letter-spacing: -0.04em;
-  line-height: 1;
-}
-#cnt-done { color: var(--t1); }
-.progress-nums .denom {
-  font-size: 14px;
-  color: var(--t3);
-  letter-spacing: -0.01em;
-  font-family: var(--sans);
-  font-weight: 300;
-  margin-left: 4px;
-}
-.pbar {
-  height: 1px;
-  background: var(--ln2);
-  border-radius: 1px;
-  overflow: visible;
-  position: relative;
-}
-.pbar-fill {
-  height: 100%;
-  background: var(--gold);
-  border-radius: 1px;
-  transition: width 0.55s cubic-bezier(0.4,0,0.2,1);
-  position: relative;
-}
-.pbar-fill::after {
-  content: '';
-  position: absolute;
-  right: -1px; top: -2px;
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: var(--gold);
-  opacity: 0.8;
-}
+.progress-card { margin-bottom:32px; }
+.progress-header { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:10px; }
+.progress-label { font-size:11px; font-weight:500; color:var(--t3); text-transform:uppercase; letter-spacing:0.13em; }
+.progress-nums { font-family:var(--serif); font-size:24px; font-weight:400; color:var(--t1); letter-spacing:-0.04em; line-height:1; }
+#cnt-done { color:var(--t1); }
+.progress-nums .denom { font-size:14px; color:var(--t3); letter-spacing:-0.01em; font-family:var(--sans); font-weight:300; margin-left:4px; }
+.pbar { height:1px; background:var(--ln2); border-radius:1px; overflow:visible; position:relative; }
+.pbar-fill { height:100%; background:var(--gold); border-radius:1px; transition:width 0.55s cubic-bezier(0.4,0,0.2,1); position:relative; }
+.pbar-fill::after { content:''; position:absolute; right:-1px; top:-2px; width:5px; height:5px; border-radius:50%; background:var(--gold); opacity:0.8; }
 
-/* ═══════════════════════════════════════════
-   ACTIVITIES DISCLOSURE
-═══════════════════════════════════════════ */
-.activities-disclosure { margin-bottom: 28px; }
+/* ACTIVITIES */
+.activities-disclosure { margin-bottom:28px; }
 .disclosure-trigger {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  color: var(--t3);
-  font-size: 11px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
-  transition: color 0.18s;
-  text-align: left;
+  display:flex; align-items:center; width:100%; background:none; border:none;
+  cursor:pointer; padding:0; color:var(--t3); font-size:11px; font-weight:500;
+  text-transform:uppercase; letter-spacing:0.13em; transition:color 0.18s; text-align:left;
 }
-.disclosure-trigger:hover { color: var(--t2); }
-.disclosure-icon {
-  margin-left: auto;
-  font-size: 9px;
-  opacity: 0.5;
-  transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
-  font-family: var(--sans);
-}
-.disclosure-trigger.open .disclosure-icon { transform: rotate(90deg); }
-.disclosure-body {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height 0.32s cubic-bezier(0.4,0,0.2,1), opacity 0.22s ease;
-}
-.disclosure-body.open { max-height: 160px; opacity: 1; }
-.chips-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  padding-top: 14px;
-}
-.chip-act {
-  padding: 5px 14px;
-  border-radius: 20px;
-  border: 1px solid var(--ln2);
-  background: none;
-  color: var(--t3);
-  font-size: 12px;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.18s;
-  user-select: none;
-}
-.chip-act:hover { border-color: var(--t2); color: var(--t2); background: rgba(42,37,32,0.04); }
-.chip-act.on { border-color: var(--gold-m); color: var(--gold); background: var(--gold-l); }
+.disclosure-trigger:hover { color:var(--t2); }
+.disclosure-icon { margin-left:auto; font-size:9px; opacity:0.5; transition:transform 0.22s cubic-bezier(0.4,0,0.2,1); }
+.disclosure-trigger.open .disclosure-icon { transform:rotate(90deg); }
+.disclosure-body { max-height:0; overflow:hidden; opacity:0; transition:max-height 0.32s cubic-bezier(0.4,0,0.2,1),opacity 0.22s ease; }
+.disclosure-body.open { max-height:160px; opacity:1; }
+.chips-row { display:flex; flex-wrap:wrap; gap:7px; padding-top:14px; }
+.chip-act { padding:5px 14px; border-radius:20px; border:1px solid var(--ln2); background:none; color:var(--t3); font-size:12px; font-weight:400; cursor:pointer; transition:all 0.18s; user-select:none; }
+.chip-act:hover { border-color:var(--t2); color:var(--t2); background:rgba(42,37,32,0.04); }
+.chip-act.on { border-color:var(--gold-m); color:var(--gold); background:var(--gold-l); }
 
-/* ═══════════════════════════════════════════
-   ADD ITEM  —  stable, no-zoom
-═══════════════════════════════════════════ */
-.add-zone { margin-bottom: 28px; }
-.add-label {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--t3);
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
-  margin-bottom: 10px;
-}
-.add-hint {
-  font-size: 11px;
-  font-weight: 300;
-  color: var(--t3);
-  margin-bottom: 10px;
-  font-family: var(--sans);
-}
-.add-row {
-  display: flex;
-  gap: 8px;
-  align-items: stretch;
-}
+/* ADD ITEM */
+.add-zone { margin-bottom:28px; }
+.add-label { font-size:11px; font-weight:500; color:var(--t3); text-transform:uppercase; letter-spacing:0.13em; margin-bottom:10px; }
+.add-hint { font-size:11px; font-weight:300; color:var(--t3); margin-bottom:10px; font-family:var(--sans); }
+.add-row { display:flex; gap:8px; align-items:stretch; }
 .add-input {
-  flex: 1;
-  min-width: 0;
-  padding: 10px 14px;
-  border-radius: var(--r-sm);
-  border: 1px solid var(--ln2);
-  background: var(--surf-1);
-  color: var(--t1);
-  font-size: 16px;   /* must be 16px+ to prevent iOS zoom */
-  font-weight: 300;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  /* Reserve enough height so no layout shift when focused */
-  line-height: 1.4;
+  flex:1; min-width:0; padding:10px 14px; border-radius:var(--r-sm);
+  border:1px solid var(--ln2); background:var(--surf-1); color:var(--t1);
+  font-size:16px; font-weight:300; outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s; line-height:1.4;
 }
-.add-input::placeholder { color: var(--t3); font-size: 14px; }
-.add-input:focus {
-  border-color: var(--gold-m);
-  box-shadow: 0 0 0 3px rgba(156,122,78,0.08);
-}
+.add-input::placeholder { color:var(--t3); font-size:14px; }
+.add-input:focus { border-color:var(--gold-m); box-shadow:0 0 0 3px rgba(156,122,78,0.08); }
 .add-select {
-  padding: 10px 10px;
-  border-radius: var(--r-sm);
-  border: 1px solid var(--ln2);
-  background: var(--surf-1);
-  color: var(--t2);
-  font-size: 16px;   /* must be 16px+ to prevent iOS zoom */
-  font-weight: 300;
-  outline: none;
-  cursor: pointer;
-  flex-shrink: 0;
-  line-height: 1.4;
+  padding:10px; border-radius:var(--r-sm); border:1px solid var(--ln2);
+  background:var(--surf-1); color:var(--t2); font-size:16px; font-weight:300;
+  outline:none; cursor:pointer; flex-shrink:0; line-height:1.4;
 }
-.add-select option { background: var(--surf-1); }
+.add-select option { background:var(--surf-1); }
 .add-go {
-  padding: 10px 18px;
-  border-radius: var(--r-sm);
-  border: 1px solid var(--gold-m);
-  background: var(--gold-l);
-  color: var(--gold);
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.18s;
-  white-space: nowrap;
-  flex-shrink: 0;
-  letter-spacing: 0.01em;
+  padding:10px 18px; border-radius:var(--r-sm);
+  border:1px solid var(--gold-m); background:var(--gold-l); color:var(--gold);
+  font-size:13px; font-weight:500; cursor:pointer; transition:all 0.18s; white-space:nowrap; flex-shrink:0;
 }
-.add-go:hover { background: rgba(156,122,78,0.20); }
-.add-go:active { transform: scale(0.97); }
+.add-go:hover { background:rgba(156,122,78,0.20); }
+.add-go:active { transform:scale(0.97); }
 
 /* ═══════════════════════════════════════════
-   SECTION HEADERS
+   SECTION HEADERS — bolder, more distinct
 ═══════════════════════════════════════════ */
-.pack-section { margin-bottom: 0; }
+.pack-section { margin-bottom:0; }
 .sec-hdr {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 0;
-  border-top: 1px solid var(--ln);
-  cursor: pointer;
-  user-select: none;
-  transition: opacity 0.15s;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 0 14px;
+  border-top:1.5px solid var(--ln2);
+  cursor:pointer; user-select:none; transition:opacity 0.15s;
+  background:transparent;
 }
-.sec-hdr:hover { opacity: 0.7; }
-.sec-hdr-left { display: flex; align-items: center; gap: 10px; }
-.sec-icon { font-size: 13px; opacity: 0.7; }
+.sec-hdr:hover { opacity:0.72; }
+.sec-hdr-left { display:flex; align-items:center; gap:10px; }
+.sec-icon { font-size:14px; opacity:0.75; }
 .sec-name {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--t1);
-  letter-spacing: 0.005em;
+  font-size:12px;
+  font-weight:600;
+  font-family:var(--sans);
+  color:var(--t1);
+  letter-spacing:0.06em;
+  text-transform:uppercase;
 }
 .sec-count {
-  font-family: var(--serif);
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--t3);
-  letter-spacing: -0.02em;
+  font-family:var(--sans);
+  font-size:11px;
+  font-weight:400;
+  color:var(--t3);
+  letter-spacing:0.01em;
+  background:rgba(42,37,32,0.06);
+  padding:1px 7px;
+  border-radius:10px;
 }
-.sec-chevron {
-  color: var(--t3);
-  font-size: 9px;
-  opacity: 0.5;
-  transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
-}
-.sec-chevron.open { transform: rotate(90deg); }
-.sec-body { display: flex; flex-direction: column; }
+.sec-chevron { color:var(--t3); font-size:9px; opacity:0.5; transition:transform 0.22s cubic-bezier(0.4,0,0.2,1); }
+.sec-chevron.open { transform:rotate(90deg); }
+.sec-body { display:flex; flex-direction:column; }
 
-/* ═══════════════════════════════════════════
-   PACK ITEMS
-═══════════════════════════════════════════ */
+/* PACK ITEMS */
 .pack-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 13px 0;
-  border-top: 1px solid var(--ln);
-  position: relative;
-  animation: fadeUp 0.18s ease both;
+  display:flex; align-items:center; gap:14px;
+  padding:13px 0; border-top:1px solid var(--ln);
+  position:relative; animation:fadeUp 0.18s ease both;
 }
-/* Hide bag controls + delete by default; reveal on hover */
 .pack-item .bag-checks,
-.pack-item .del-btn {
-  opacity: 0;
-  transition: opacity 0.18s ease;
-}
+.pack-item .del-btn { opacity:0; transition:opacity 0.18s ease; }
 .pack-item:hover .bag-checks,
 .pack-item:hover .del-btn,
 .pack-item:focus-within .bag-checks,
-.pack-item:focus-within .del-btn { opacity: 1; }
+.pack-item:focus-within .del-btn { opacity:1; }
 
-.pack-item.done { opacity: 0.35; }
-.pack-item.done .pack-name {
-  text-decoration: line-through;
-  text-decoration-thickness: 1px;
-  text-decoration-color: var(--t3);
-}
-
+.pack-item.done { opacity:0.35; }
+.pack-item.done .pack-name { text-decoration:line-through; text-decoration-thickness:1px; text-decoration-color:var(--t3); }
 .pack-item.is-custom::before {
-  content: '';
-  position: absolute;
-  left: -1px; top: 30%; bottom: 30%;
-  width: 2px;
-  border-radius: 2px;
-  background: var(--gold);
-  opacity: 0.5;
+  content:''; position:absolute; left:-1px; top:30%; bottom:30%;
+  width:2px; border-radius:2px; background:var(--gold); opacity:0.5;
 }
 
-/* CHECKBOX */
 .check-box {
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  border: 1.5px solid var(--ln2);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease, transform 0.12s ease;
-  background: none;
+  width:20px; height:20px; border-radius:50%; border:1.5px solid var(--ln2);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  cursor:pointer; transition:border-color 0.2s ease,background 0.2s ease,transform 0.12s ease; background:none;
 }
-.check-box:hover { border-color: var(--t3); transform: scale(1.08); }
-.pack-item.done .check-box { background: var(--gold); border-color: var(--gold); transform: scale(1); }
-.check-inner {
-  color: var(--bg);
-  font-size: 9px;
-  font-weight: 700;
-  opacity: 0;
-  transform: scale(0);
-}
-.pack-item.done .check-inner {
-  animation: checkPop 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards;
-}
+.check-box:hover { border-color:var(--t3); transform:scale(1.08); }
+.pack-item.done .check-box { background:var(--gold); border-color:var(--gold); transform:scale(1); }
+.check-inner { color:var(--bg); font-size:9px; font-weight:700; opacity:0; transform:scale(0); }
+.pack-item.done .check-inner { animation:checkPop 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards; }
 
-.pack-content { flex: 1; min-width: 0; }
-.pack-name {
-  font-size: 14px;
-  font-weight: 300;
-  color: var(--t1);
-  line-height: 1.4;
-  transition: color 0.15s;
-  cursor: text;
-}
-.pack-item:not(.done) .pack-name:hover {
-  text-decoration: underline;
-  text-decoration-color: var(--t3);
-  text-underline-offset: 3px;
-  text-decoration-style: dotted;
-}
-.pack-note {
-  font-size: 11px;
-  font-weight: 300;
-  color: var(--t3);
-  margin-top: 2px;
-  line-height: 1.4;
-}
+.pack-content { flex:1; min-width:0; }
+.pack-name { font-size:14px; font-weight:300; color:var(--t1); line-height:1.4; transition:color 0.15s; cursor:text; }
+.pack-item:not(.done) .pack-name:hover { text-decoration:underline; text-decoration-color:var(--t3); text-underline-offset:3px; text-decoration-style:dotted; }
+.pack-note { font-size:11px; font-weight:300; color:var(--t3); margin-top:2px; line-height:1.4; }
 .pack-name-input {
-  background: none;
-  border: none;
-  border-bottom: 1px solid var(--gold-m);
-  color: var(--t1);
-  font-size: 16px;   /* prevent iOS zoom */
-  font-weight: 300;
-  padding: 1px 2px;
-  outline: none;
-  width: 100%;
-  border-radius: 0;
-  font-family: var(--sans);
+  background:none; border:none; border-bottom:1px solid var(--gold-m);
+  color:var(--t1); font-size:16px; font-weight:300; padding:1px 2px;
+  outline:none; width:100%; border-radius:0; font-family:var(--sans);
 }
 
-/* BAG CHECKMARKS */
-.bag-checks { display: flex; gap: 4px; flex-shrink: 0; align-items: center; }
+.bag-checks { display:flex; gap:4px; flex-shrink:0; align-items:center; }
 .bag-chk {
-  width: 20px; height: 20px;
-  border-radius: 4px;
-  border: 1px solid var(--ln2);
-  background: none;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  font-size: 9px;
-  font-weight: 700;
-  transition: all 0.15s ease;
-  flex-shrink: 0;
-  color: transparent;
-  line-height: 1;
+  width:20px; height:20px; border-radius:4px; border:1px solid var(--ln2); background:none;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:9px; font-weight:700; transition:all 0.15s ease;
+  flex-shrink:0; color:transparent; line-height:1;
 }
-.bag-chk:hover { border-color: var(--t3); background: rgba(42,37,32,0.06); }
-.bag-chk.on-checked  { background: rgba(126,168,159,.2); border-color: var(--ba); color: var(--ba); }
-.bag-chk.on-carry    { background: rgba(132,150,186,.2); border-color: var(--bb); color: var(--bb); }
-.bag-chk.on-personal { background: rgba(158,144,192,.2); border-color: var(--bc); color: var(--bc); }
+.bag-chk:hover { border-color:var(--t3); background:rgba(42,37,32,0.06); }
+.bag-chk.on-checked  { background:rgba(126,168,159,.2); border-color:var(--ba); color:var(--ba); }
+.bag-chk.on-carry    { background:rgba(132,150,186,.2); border-color:var(--bb); color:var(--bb); }
+.bag-chk.on-personal { background:rgba(158,144,192,.2); border-color:var(--bc); color:var(--bc); }
 
-.edit-btn { display: none; }
+.edit-btn { display:none; }
+.del-btn { background:none; border:none; cursor:pointer; color:var(--t3); font-size:15px; padding:2px 3px; transition:color 0.15s; flex-shrink:0; line-height:1; }
+.del-btn:hover { color:rgba(180,60,60,0.65); }
 
-.del-btn {
-  background: none; border: none; cursor: pointer;
-  color: var(--t3); font-size: 15px; padding: 2px 3px;
-  transition: color 0.15s; flex-shrink: 0; line-height: 1;
-}
-.del-btn:hover { color: rgba(180,60,60,0.65); }
+/* SKIP */
+.skip-section { padding-top:8px; }
+.skip-title { font-size:11px; font-weight:500; color:var(--t3); text-transform:uppercase; letter-spacing:0.13em; margin-bottom:20px; }
+.skip-row { display:flex; align-items:flex-start; gap:13px; padding:10px 0; border-top:1px solid var(--ln); font-size:13px; }
+.skip-row:last-child { border-bottom:1px solid var(--ln); }
+.skip-x { width:16px; height:16px; border-radius:50%; border:1px solid var(--ln2); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:8px; color:var(--t3); margin-top:1px; font-weight:600; }
+.skip-txt { color:var(--t2); font-weight:300; line-height:1.55; }
+.skip-txt strong { font-weight:500; color:var(--t1); }
 
-/* ═══════════════════════════════════════════
-   SKIP / LEAVE BEHIND
-═══════════════════════════════════════════ */
-.skip-section { padding-top: 8px; }
-.skip-title {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--t3);
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
-  margin-bottom: 20px;
-}
-.skip-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 13px;
-  padding: 10px 0;
-  border-top: 1px solid var(--ln);
-  font-size: 13px;
-}
-.skip-row:last-child { border-bottom: 1px solid var(--ln); }
-.skip-x {
-  width: 16px; height: 16px;
-  border-radius: 50%;
-  border: 1px solid var(--ln2);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  font-size: 8px;
-  color: var(--t3);
-  margin-top: 1px;
-  font-weight: 600;
-}
-.skip-txt { color: var(--t2); font-weight: 300; line-height: 1.55; }
-.skip-txt strong { font-weight: 500; color: var(--t1); }
+/* BAG SUMMARY */
+.bag-view-intro { font-size:13px; font-weight:300; color:var(--t3); line-height:1.7; margin-bottom:32px; max-width:520px; }
+.bag-view-cols { display:flex; flex-direction:column; gap:1px; background:var(--ln); border-radius:var(--r); overflow:hidden; }
+.bag-view-card { background:var(--surf-1); overflow:hidden; }
+.bag-view-hdr { display:flex; align-items:center; justify-content:space-between; padding:18px 22px 16px; gap:10px; flex-wrap:wrap; background:var(--surf-1); }
+.bag-view-hdr:hover { background:var(--surf-2); }
+.bag-view-title { display:flex; align-items:center; gap:10px; font-size:14px; font-weight:500; color:var(--t1); letter-spacing:-0.01em; font-family:var(--serif); }
+.bag-view-badge,.badge-checked,.badge-carry,.badge-personal { font-size:13px; font-weight:300; color:var(--t3); font-family:var(--serif); letter-spacing:-0.02em; background:none; border:none; padding:0; }
+.bag-view-limit { font-size:11px; font-weight:300; color:var(--t3); letter-spacing:0.01em; }
+.bag-view-body { padding:2px 22px 18px; }
+.bag-view-item { display:flex; align-items:center; gap:12px; padding:9px 0; border-top:1px solid var(--ln); font-size:13px; font-weight:300; }
+.bag-view-item:first-child { border-top:none; }
+.bag-view-dot { width:4px; height:4px; border-radius:50%; flex-shrink:0; }
+.dot-checked  { background:var(--ba); opacity:0.7; }
+.dot-carry    { background:var(--bb); opacity:0.7; }
+.dot-personal { background:var(--bc); opacity:0.7; }
+.bag-view-name { flex:1; color:var(--t1); font-weight:300; }
+.bag-view-sec  { font-size:11px; color:var(--t3); font-weight:300; }
+.bag-view-empty { padding:32px 0 24px; font-family:var(--serif); font-size:15px; font-style:italic; color:var(--t3); text-align:center; }
 
-/* ═══════════════════════════════════════════
-   BAG SUMMARY TAB
-═══════════════════════════════════════════ */
-.bag-view-intro {
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--t3);
-  line-height: 1.7;
-  margin-bottom: 32px;
-  max-width: 520px;
-}
-.bag-view-cols {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  background: var(--ln);
-  border-radius: var(--r);
-  overflow: hidden;
-}
-.bag-view-card { background: var(--surf-1); overflow: hidden; }
-.bag-view-hdr {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 22px 16px;
-  gap: 10px;
-  flex-wrap: wrap;
-  background: var(--surf-1);
-}
-.bag-view-hdr:hover { background: var(--surf-2); }
-.bag-view-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--t1);
-  letter-spacing: -0.01em;
-  font-family: var(--serif);
-}
-.bag-view-badge, .badge-checked, .badge-carry, .badge-personal {
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--t3);
-  font-family: var(--serif);
-  letter-spacing: -0.02em;
-  background: none;
-  border: none;
-  padding: 0;
-}
-.bag-view-limit {
-  font-size: 11px;
-  font-weight: 300;
-  color: var(--t3);
-  letter-spacing: 0.01em;
-}
-.bag-view-body { padding: 2px 22px 18px; }
-.bag-view-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 9px 0;
-  border-top: 1px solid var(--ln);
-  font-size: 13px;
-  font-weight: 300;
-}
-.bag-view-item:first-child { border-top: none; }
-.bag-view-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
-.dot-checked  { background: var(--ba); opacity: 0.7; }
-.dot-carry    { background: var(--bb); opacity: 0.7; }
-.dot-personal { background: var(--bc); opacity: 0.7; }
-.bag-view-name { flex: 1; color: var(--t1); font-weight: 300; }
-.bag-view-sec  { font-size: 11px; color: var(--t3); font-weight: 300; }
-.bag-view-empty {
-  padding: 32px 0 24px;
-  font-family: var(--serif);
-  font-size: 15px;
-  font-style: italic;
-  color: var(--t3);
-  text-align: center;
-}
-
-/* ═══════════════════════════════════════════
-   TOAST
-═══════════════════════════════════════════ */
+/* TOAST */
 .toast {
-  position: fixed;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%) translateY(64px);
-  background: var(--t1);
-  color: var(--bg);
-  padding: 9px 18px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 400;
-  z-index: 9999;
-  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
-  white-space: nowrap;
-  letter-spacing: 0.01em;
-  pointer-events: none;
-  font-family: var(--sans);
+  position:fixed; bottom:28px; left:50%;
+  transform:translateX(-50%) translateY(64px);
+  background:var(--t1); color:var(--bg);
+  padding:9px 18px; border-radius:20px; font-size:13px; font-weight:400;
+  z-index:9999; transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  white-space:nowrap; letter-spacing:0.01em; pointer-events:none; font-family:var(--sans);
 }
-.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.show { transform:translateX(-50%) translateY(0); }
 
 /* ═══════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
-  .content-cols { grid-template-columns: 1fr; gap: 0; }
-  .features { flex-direction: row; }
-  .feature { padding-right: 20px; margin-right: 20px; }
-  .trip-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
-  .list-hint-bar { gap: 12px; }
+  .content-cols { grid-template-columns:1fr; gap:0; }
+  .trip-grid { grid-template-columns:1fr 1fr; gap:14px; }
+  .list-hint-bar { gap:12px; }
 }
 @media (max-width: 640px) {
-  .home-inner  { padding: 0 20px 80px; }
-  .hero        { padding: 64px 0 36px; }
-  .hero-title  { font-size: 44px; }
-  .features    { flex-direction: column; gap: 16px; padding: 16px 0; margin-bottom: 40px; }
-  .feature     { border-right: none; margin-right: 0; padding-right: 0; border-bottom: 1px solid var(--ln); padding-bottom: 16px; }
-  .feature:last-child { border-bottom: none; padding-bottom: 0; }
-  .trip-grid   { grid-template-columns: 1fr; gap: 16px; }
-  .card-visual { height: 160px; }
-  .card-body   { padding: 20px 22px 24px; }
-  .card-name   { font-size: 19px; }
-
-  .list-layout  { padding: 0 18px 60px; }
-  .topbar       { flex-direction: column; align-items: flex-start; gap: 12px; padding: 20px 0 16px; }
-  .trip-hero-title { font-size: 18px; }
-  .tabs         { width: 100%; }
-  .tab          { flex: 1; text-align: center; padding: 8px 10px; font-size: 12px; }
-  .add-row      { flex-wrap: wrap; }
-  .add-input    { flex: 1 1 100%; }
-  .list-hint-bar { font-size: 11px; }
-
+  .home-inner  { padding:0 20px 80px; }
+  .hero        { padding:64px 0 36px; }
+  .hero-title  { font-size:44px; }
+  .features    { flex-direction:column; gap:16px; padding:16px 0; margin-bottom:40px; }
+  .feature     { border-right:none; margin-right:0; padding-right:0; border-bottom:1px solid var(--ln); padding-bottom:16px; }
+  .feature:last-child { border-bottom:none; padding-bottom:0; }
+  .trip-grid   { grid-template-columns:1fr; gap:16px; }
+  .card-visual { height:160px; }
+  .card-body   { padding:20px 22px 24px; }
+  .card-name   { font-size:19px; }
+  .list-layout  { padding:0 18px 60px; }
+  .topbar       { flex-direction:column; align-items:flex-start; gap:12px; padding:20px 0 16px; }
+  .trip-hero-title { font-size:18px; }
+  .tabs         { width:100%; }
+  .tab          { flex:1; text-align:center; padding:8px 10px; font-size:12px; }
+  .add-row      { flex-wrap:wrap; }
+  .add-input    { flex:1 1 100%; }
+  .list-hint-bar { font-size:11px; }
   .pack-item .bag-checks,
-  .pack-item .del-btn { opacity: 1; }
-  .bag-chk { width: 18px; height: 18px; }
-  .bag-view-hdr { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .pack-item .del-btn { opacity:1; }
+  .bag-chk { width:18px; height:18px; }
+  .bag-view-hdr { flex-direction:column; align-items:flex-start; gap:6px; }
+  .modal { padding:28px 24px 24px; }
 }
-
 </style>
 </head>
 <body>
@@ -1035,23 +597,37 @@ button { font-family: inherit; }
   <div class="hero">
     <div class="hero-overline">Smart packing</div>
     <h1 class="hero-title">Pack with<br><em>intention.</em></h1>
-    <p class="hero-body">Tailored packing lists for every trip type. Assign items to bags as you go, then check them off as you pack.</p>
+    <p class="hero-body">Curated packing lists for every trip type. Name your trip, personalise the list, and check items off as you pack.</p>
   </div>
   <div class="features">
     <div class="feature">
-      <div class="feature-title">Bags inline</div>
-      <div class="feature-desc">Three marks per item — route to checked, carry-on, or personal.</div>
+      <div class="feature-title">Name your trip</div>
+      <div class="feature-desc">Pick a template, give it a name, and it becomes your own independent list.</div>
     </div>
     <div class="feature">
       <div class="feature-title">Edit anything</div>
-      <div class="feature-desc">Click any name to rename. Paste a list to add in bulk.</div>
+      <div class="feature-desc">Rename, delete, add items, or paste a whole list at once.</div>
     </div>
     <div class="feature">
-      <div class="feature-title">Leave it behind</div>
-      <div class="feature-desc">Smart tips on what to skip for each trip type.</div>
+      <div class="feature-title">Everything saved</div>
+      <div class="feature-desc">Your trips and all changes persist automatically in your browser.</div>
     </div>
   </div>
-  <div class="grid-eyebrow">Destinations</div>
+
+  <!-- MY TRIPS -->
+  <div class="my-trips-section">
+    <div class="section-eyebrow-row">
+      <div class="grid-eyebrow">My Trips</div>
+    </div>
+    <div class="trip-grid" id="my-trips-grid">
+      <div class="my-trips-empty">No saved trips yet. Choose a template below to get started.</div>
+    </div>
+  </div>
+
+  <!-- TEMPLATES -->
+  <div class="section-eyebrow-row" style="margin-bottom:28px">
+    <div class="grid-eyebrow" style="margin-bottom:0">Templates</div>
+  </div>
   <div class="trip-grid" id="trip-grid"></div>
 </div>
 </div>
@@ -1059,32 +635,17 @@ button { font-family: inherit; }
 <!-- LIST PAGE -->
 <div id="page-list" class="page">
 <div class="list-layout">
-
-  <!-- Instructional hint bar — compact, above topbar -->
   <div class="list-hint-bar">
-    <span class="hint-item">
-      <span class="hint-swatch hint-checked">&#10003;</span>Checked bag
-    </span>
-    <span class="hint-item">
-      <span class="hint-swatch hint-carry">&#10003;</span>Carry-on
-    </span>
-    <span class="hint-item">
-      <span class="hint-swatch hint-personal">&#10003;</span>Personal item
-    </span>
+    <span class="hint-item"><span class="hint-swatch hint-checked">&#10003;</span>Checked bag</span>
+    <span class="hint-item"><span class="hint-swatch hint-carry">&#10003;</span>Carry-on</span>
+    <span class="hint-item"><span class="hint-swatch hint-personal">&#10003;</span>Personal item</span>
     <span class="hint-sep"></span>
     <span class="hint-rename">Click any item name to rename &nbsp;&middot;&nbsp; Paste multiple lines to add in bulk</span>
   </div>
-
   <div class="topbar">
-    <button class="back-btn" id="back-btn">
-      <span class="back-arrow">&#8592;</span>
-      All trips
-    </button>
+    <button class="back-btn" id="back-btn"><span class="back-arrow">&#8592;</span> My trips</button>
     <div class="trip-hero-info">
-      <div class="trip-hero-title">
-        <span id="list-emoji" style="display:none"></span>
-        <span id="list-title"></span>
-      </div>
+      <div class="trip-hero-title"><span id="list-title"></span></div>
       <div class="trip-hero-meta" id="list-meta"></div>
     </div>
     <div class="tabs">
@@ -1093,11 +654,9 @@ button { font-family: inherit; }
     </div>
   </div>
 
-  <!-- PACKING TAB -->
   <div class="tab-panel active" id="tab-packing">
     <div class="content-cols">
       <div>
-        <!-- Progress -->
         <div class="progress-card">
           <div class="trip-tags-row" id="list-pills"></div>
           <div class="progress-header">
@@ -1106,19 +665,14 @@ button { font-family: inherit; }
           </div>
           <div class="pbar"><div class="pbar-fill" id="pbar-fill" style="width:0%"></div></div>
         </div>
-
-        <!-- Activities (collapsed by default) -->
         <div class="activities-disclosure">
           <button class="disclosure-trigger" id="activities-trigger">
-            Activities
-            <span class="disclosure-icon">&#9658;</span>
+            Activities <span class="disclosure-icon">&#9658;</span>
           </button>
           <div class="disclosure-body" id="activities-body">
             <div class="chips-row" id="activity-chips"></div>
           </div>
         </div>
-
-        <!-- Add item -->
         <div class="add-zone">
           <div class="add-label">Add item</div>
           <div class="add-hint">Paste a multi-line list to add several items at once.</div>
@@ -1128,30 +682,41 @@ button { font-family: inherit; }
             <button class="add-go" id="add-go-btn">Add</button>
           </div>
         </div>
-
         <div id="pack-sections"></div>
       </div>
-
-      <!-- Skip column -->
       <div>
         <div class="skip-section" id="skip-section"></div>
       </div>
     </div>
   </div>
 
-  <!-- BAG SUMMARY TAB -->
   <div class="tab-panel" id="tab-bags">
-    <p class="bag-view-intro">Items you&#8217;ve assigned using the bag checkmarks, sorted by bag. Tap a checkmark again to unassign.</p>
+    <p class="bag-view-intro">Items assigned via the bag checkmarks, sorted by bag. Tap again to unassign.</p>
     <div class="bag-view-cols" id="bag-view-cols"></div>
   </div>
 </div>
+</div>
+
+<!-- NAME TRIP MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <div class="modal-overline">New trip</div>
+    <div class="modal-title" id="modal-title">Beach Vacation</div>
+    <div class="modal-template-label" id="modal-template-label">Based on Beach Vacation template</div>
+    <label class="modal-label" for="modal-input">Trip name</label>
+    <input class="modal-input" id="modal-input" type="text" placeholder="e.g. Cancun March 2026" autocomplete="off" />
+    <div class="modal-actions">
+      <button class="modal-btn-cancel" id="modal-cancel">Cancel</button>
+      <button class="modal-btn-primary" id="modal-save">Create trip</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
 /* ======================================================
-   TRIP DATA
+   TRIP TEMPLATES (read-only source data)
 ====================================================== */
 var TRIPS = [
  {id:'beach',emoji:'&#127958;',name:'Beach Vacation',theme:'theme-beach',
@@ -1407,53 +972,62 @@ var TRIPS = [
 ];
 
 /* ======================================================
-   PERSISTENCE  —  localStorage save / restore
+   SAVED TRIPS STORE  (localStorage)
 ====================================================== */
-var STORAGE_KEY = 'packwise_v1';
+var TRIPS_STORE_KEY = 'packwise_saved_trips_v1';
 
-function saveState(){
-  if(!state.trip) return;
-  try {
-    // Save item mutations: renames and deletes from base sections
-    var itemMutations = {};
-    state.trip.sections.forEach(function(sec){
-      itemMutations[sec.id] = sec.items.map(function(i){ return {n:i.n, note:i.note||'', p:i.p||'med', act:i.act||null}; });
-    });
-    // Save custom sections (user-created categories)
-    var customSections = state.trip.sections.filter(function(s){ return s.id.indexOf('custom_') === 0; })
-      .map(function(s){ return {id:s.id, icon:s.icon, label:s.label}; });
-
-    var saved = {
-      tripId:            state.trip.id,
-      activeActivities:  state.activeActivities,
-      checkedItems:      state.checkedItems,
-      collapsedSections: state.collapsedSections,
-      customItems:       state.customItems,
-      itemBags:          state.itemBags,
-      itemMutations:     itemMutations,
-      customSections:    customSections
-    };
-    localStorage.setItem(STORAGE_KEY + '_' + state.trip.id, JSON.stringify(saved));
-  } catch(e){}
+function loadSavedTrips(){
+  try { return JSON.parse(localStorage.getItem(TRIPS_STORE_KEY)||'[]'); } catch(e){ return []; }
+}
+function writeSavedTrips(list){
+  try { localStorage.setItem(TRIPS_STORE_KEY, JSON.stringify(list)); } catch(e){}
 }
 
-function loadState(tripId){
-  try {
-    var raw = localStorage.getItem(STORAGE_KEY + '_' + tripId);
-    if(!raw) return null;
-    return JSON.parse(raw);
-  } catch(e){ return null; }
+/* Get one saved trip's live state (sections, customs, etc.) */
+function loadTripState(instanceId){
+  try { return JSON.parse(localStorage.getItem('packwise_state_' + instanceId)||'null'); } catch(e){ return null; }
+}
+function writeTripState(instanceId, stateObj){
+  try { localStorage.setItem('packwise_state_' + instanceId, JSON.stringify(stateObj)); } catch(e){}
+}
+function deleteTripState(instanceId){
+  try { localStorage.removeItem('packwise_state_' + instanceId); } catch(e){}
 }
 
 /* ======================================================
    STATE
 ====================================================== */
-var state = {trip:null, activeActivities:{}, checkedItems:{}, collapsedSections:{}, customItems:{}, itemBags:{}};
+var state = {
+  instanceId: null,  /* the saved-trip UUID being edited */
+  trip: null,
+  activeActivities:{}, checkedItems:{}, collapsedSections:{},
+  customItems:{}, itemBags:{}
+};
+
+function saveState(){
+  if(!state.instanceId) return;
+  /* Snapshot item mutations */
+  var itemMutations = {};
+  state.trip.sections.forEach(function(sec){
+    itemMutations[sec.id] = sec.items.map(function(i){ return {n:i.n,note:i.note||'',p:i.p||'med',act:i.act||null}; });
+  });
+  var customSections = state.trip.sections.filter(function(s){ return s.id.indexOf('custom_')===0; })
+    .map(function(s){ return {id:s.id,icon:s.icon,label:s.label}; });
+
+  writeTripState(state.instanceId, {
+    activeActivities:  state.activeActivities,
+    checkedItems:      state.checkedItems,
+    collapsedSections: state.collapsedSections,
+    customItems:       state.customItems,
+    itemBags:          state.itemBags,
+    itemMutations:     itemMutations,
+    customSections:    customSections
+  });
+}
 
 /* ======================================================
-   HOME
+   HOME — render templates + saved trips
 ====================================================== */
-/* Emotional one-line subtitles per trip */
 var CARD_SUBTITLES = {
   beach:    'Salt air, warm water, nothing left undone.',
   city:     'Cobblestones, café terraces, unhurried afternoons.',
@@ -1466,61 +1040,139 @@ var CARD_SUBTITLES = {
 };
 
 function renderHome(){
-  var grid = document.getElementById('trip-grid');
-  grid.innerHTML = '';
-  TRIPS.forEach(function(trip){
+  /* ── Templates ── */
+  var tGrid = document.getElementById('trip-grid');
+  tGrid.innerHTML = '';
+  TRIPS.forEach(function(trip, i){
     var card = document.createElement('div');
     card.className = 'trip-card ' + trip.theme;
-    var subtitle = CARD_SUBTITLES[trip.id] || trip.desc;
-    // Check if there's saved progress for this trip
-    var saved = loadState(trip.id);
-    var hasSaved = saved && (Object.keys(saved.checkedItems||{}).length > 0 || Object.keys(saved.customItems||{}).some(function(k){ return (saved.customItems[k]||[]).length > 0; }));
-    var progressTag = '';
-    if(hasSaved){
-      var checked = Object.values(saved.checkedItems||{}).filter(Boolean).length;
-      progressTag = '<div class="card-progress">' + checked + ' packed</div>';
-    }
+    card.style.animationDelay = (0.04 + i*0.05) + 's';
     card.innerHTML =
       '<div class="card-visual"></div>' +
       '<div class="card-glow"></div>' +
       '<div class="card-body">' +
         '<div class="card-name">' + trip.name + '</div>' +
-        '<div class="card-desc">' + subtitle + '</div>' +
-        progressTag +
-        '<div class="card-arrow"></div>' +
+        '<div class="card-desc">' + (CARD_SUBTITLES[trip.id]||trip.desc) + '</div>' +
       '</div>';
-    card.addEventListener('click', function(){ openTrip(trip); });
-    grid.appendChild(card);
+    card.addEventListener('click', function(){ openNameModal(trip); });
+    tGrid.appendChild(card);
+  });
+
+  /* ── My Trips ── */
+  var mGrid = document.getElementById('my-trips-grid');
+  mGrid.innerHTML = '';
+  var saved = loadSavedTrips();
+  if(saved.length === 0){
+    mGrid.innerHTML = '<div class="my-trips-empty">No saved trips yet. Choose a template below to get started.</div>';
+    return;
+  }
+  saved.forEach(function(inst, i){
+    var s = loadTripState(inst.id);
+    var checked = s ? Object.values(s.checkedItems||{}).filter(Boolean).length : 0;
+    var card = document.createElement('div');
+    card.className = 'trip-card is-saved-trip ' + inst.theme;
+    card.style.animationDelay = (0.04 + i*0.05) + 's';
+    card.innerHTML =
+      '<div class="card-visual"></div>' +
+      '<div class="card-glow"></div>' +
+      '<div class="card-actions">' +
+        '<button class="card-action-btn card-del-btn" title="Delete trip">&#215;</button>' +
+      '</div>' +
+      '<div class="card-body">' +
+        '<div class="card-name">' + inst.name + '</div>' +
+        '<div class="card-desc">' + inst.templateName + '</div>' +
+        (checked > 0 ? '<div class="card-progress">' + checked + ' packed</div>' : '') +
+      '</div>';
+
+    /* Delete button */
+    card.querySelector('.card-del-btn').addEventListener('click', function(e){
+      e.stopPropagation();
+      if(!confirm('Delete "' + inst.name + '"? This cannot be undone.')) return;
+      deleteSavedTrip(inst.id);
+    });
+
+    card.addEventListener('click', function(){ openSavedTrip(inst); });
+    mGrid.appendChild(card);
   });
 }
 
 /* ======================================================
-   OPEN TRIP
+   NAME TRIP MODAL
 ====================================================== */
-function openTrip(trip){
-  // Deep-clone the trip so mutations don't bleed across sessions
-  trip = JSON.parse(JSON.stringify(trip));
+var _pendingTemplate = null;
 
-  var saved = loadState(trip.id);
+function openNameModal(template){
+  _pendingTemplate = template;
+  document.getElementById('modal-title').textContent = template.name;
+  document.getElementById('modal-template-label').textContent = 'Based on ' + template.name + ' template';
+  var input = document.getElementById('modal-input');
+  input.value = '';
+  document.getElementById('modal-overlay').classList.add('open');
+  setTimeout(function(){ input.focus(); }, 120);
+}
 
-  // Restore item mutations (renames, deletions) onto base sections
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  _pendingTemplate = null;
+}
+
+document.getElementById('modal-cancel').addEventListener('click', closeModal);
+document.getElementById('modal-overlay').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+document.getElementById('modal-input').addEventListener('keydown', function(e){
+  if(e.key==='Enter') saveNewTrip();
+  if(e.key==='Escape') closeModal();
+});
+document.getElementById('modal-save').addEventListener('click', saveNewTrip);
+
+function saveNewTrip(){
+  var name = document.getElementById('modal-input').value.trim();
+  if(!name){ document.getElementById('modal-input').focus(); return; }
+  var inst = {
+    id:           'trip_' + Date.now(),
+    name:         name,
+    templateId:   _pendingTemplate.id,
+    templateName: _pendingTemplate.name,
+    theme:        _pendingTemplate.theme,
+    createdAt:    Date.now()
+  };
+  var list = loadSavedTrips();
+  list.unshift(inst);
+  writeSavedTrips(list);
+  closeModal();
+  /* Open the new trip immediately */
+  openSavedTrip(inst);
+}
+
+/* ======================================================
+   OPEN A SAVED TRIP INSTANCE
+====================================================== */
+function openSavedTrip(inst){
+  /* Find base template */
+  var template = TRIPS.find(function(t){ return t.id === inst.templateId; });
+  if(!template){ showToast('Template not found'); return; }
+
+  /* Deep-clone template */
+  var trip = JSON.parse(JSON.stringify(template));
+  trip.instanceName = inst.name;
+
+  /* Load persisted state */
+  var saved = loadTripState(inst.id);
+
   if(saved && saved.itemMutations){
     trip.sections.forEach(function(sec){
-      if(saved.itemMutations[sec.id]){
-        sec.items = saved.itemMutations[sec.id];
-      }
+      if(saved.itemMutations[sec.id]) sec.items = saved.itemMutations[sec.id];
     });
   }
-
-  // Restore custom user-created sections
   if(saved && saved.customSections){
     saved.customSections.forEach(function(cs){
-      if(!trip.sections.find(function(s){ return s.id === cs.id; })){
-        trip.sections.push({id:cs.id, icon:cs.icon, label:cs.label, items:[]});
-      }
+      if(!trip.sections.find(function(s){ return s.id===cs.id; }))
+        trip.sections.push({id:cs.id,icon:cs.icon,label:cs.label,items:[]});
     });
   }
 
+  state.instanceId = inst.id;
   state.trip = trip;
 
   if(saved){
@@ -1533,25 +1185,26 @@ function openTrip(trip){
     state.activeActivities = {};
     state.checkedItems = {};
     state.collapsedSections = {};
-    trip.sections.forEach(function(s){ state.collapsedSections[s.id] = true; });
+    trip.sections.forEach(function(s){ state.collapsedSections[s.id]=true; });
     state.customItems = {};
     state.itemBags = {};
-    (trip.defaultActivities||[]).forEach(function(id){ state.activeActivities[id] = true; });
+    (trip.defaultActivities||[]).forEach(function(id){ state.activeActivities[id]=true; });
   }
 
-  document.getElementById('list-emoji').innerHTML = trip.emoji;
-  document.getElementById('list-title').textContent = trip.name;
-  document.getElementById('list-meta').textContent = 'Personalize your list below';
+  /* Header */
+  document.getElementById('list-title').textContent = inst.name;
+  document.getElementById('list-meta').textContent = inst.templateName + ' template';
 
-  document.getElementById('list-pills').innerHTML = trip.pills.map(function(p){
+  document.getElementById('list-pills').innerHTML = (trip.pills||[]).map(function(p){
     return '<span class="pill ' + p.c + '">' + p.t + '</span>';
   }).join('');
 
+  /* Activity chips */
   var chipsEl = document.getElementById('activity-chips');
   chipsEl.innerHTML = '';
-  trip.activities.forEach(function(act){
+  (trip.activities||[]).forEach(function(act){
     var chip = document.createElement('div');
-    chip.className = 'chip-act' + (state.activeActivities[act.id] ? ' on' : '');
+    chip.className = 'chip-act' + (state.activeActivities[act.id]?' on':'');
     chip.innerHTML = act.label;
     chip.dataset.id = act.id;
     chip.addEventListener('click', function(){
@@ -1564,27 +1217,36 @@ function openTrip(trip){
     chipsEl.appendChild(chip);
   });
 
+  /* Section selector */
   var sections = trip.sections;
   function rebuildSectionSel(){
     document.getElementById('add-section-sel').innerHTML =
-      sections.map(function(s){ return '<option value="' + s.id + '">' + s.label + '</option>'; }).join('') +
+      sections.map(function(s){ return '<option value="'+s.id+'">'+s.label+'</option>'; }).join('') +
       '<option value="__new__">+ New category…</option>';
   }
   rebuildSectionSel();
 
-  document.getElementById('add-section-sel').addEventListener('change', function(){
+  /* New category handler — re-attach fresh each trip open */
+  var sel = document.getElementById('add-section-sel');
+  var selClone = sel.cloneNode(true);
+  sel.parentNode.replaceChild(selClone, sel);
+  selClone.innerHTML = sections.map(function(s){ return '<option value="'+s.id+'">'+s.label+'</option>'; }).join('') +
+    '<option value="__new__">+ New category…</option>';
+  selClone.addEventListener('change', function(){
     if(this.value !== '__new__') return;
     var name = prompt('New category name:');
-    if(!name || !name.trim()){ this.value = sections[0].id; return; }
+    if(!name||!name.trim()){ this.value=sections[0].id; return; }
     name = name.trim();
     var id = 'custom_' + Date.now();
-    var newSec = {id:id, icon:'&#9998;', label:name, items:[]};
-    state.trip.sections.push(newSec);
-    if(!state.customItems[id]) state.customItems[id] = [];
-    rebuildSectionSel();
-    this.value = id;
+    trip.sections.push({id:id,icon:'&#9998;',label:name,items:[]});
+    if(!state.customItems[id]) state.customItems[id]=[];
+    /* rebuild sel */
+    selClone.innerHTML = sections.map(function(s){ return '<option value="'+s.id+'">'+s.label+'</option>'; }).join('') +
+      '<option value="__new__">+ New category…</option>';
+    selClone.value = id;
+    saveState();
     renderPackSections();
-    showToast('Category “' + name + '” created');
+    showToast('Category "'+name+'" created');
   });
 
   renderPackSections();
@@ -1594,17 +1256,20 @@ function openTrip(trip){
   document.getElementById('page-home').classList.remove('active');
   document.getElementById('page-list').classList.add('active');
   switchTab('packing');
-  window.scrollTo(0, 0);
+  window.scrollTo(0,0);
+}
+
+function deleteSavedTrip(instanceId){
+  var list = loadSavedTrips().filter(function(t){ return t.id !== instanceId; });
+  writeSavedTrips(list);
+  deleteTripState(instanceId);
+  renderHome();
 }
 
 /* ======================================================
    INLINE EDIT
 ====================================================== */
-function decodeHTML(str){
-  var t = document.createElement('textarea');
-  t.innerHTML = str;
-  return t.value;
-}
+function decodeHTML(str){ var t=document.createElement('textarea'); t.innerHTML=str; return t.value; }
 
 function startEdit(nameDiv, sec, item, isCustom){
   var oldName = item.n;
@@ -1613,18 +1278,17 @@ function startEdit(nameDiv, sec, item, isCustom){
   input.value = decodeHTML(oldName);
   nameDiv.replaceWith(input);
   input.focus(); input.select();
-
   function save(){
     var newName = input.value.trim();
-    if(!newName || newName === oldName){ renderPackSections(); return; }
+    if(!newName||newName===oldName){ renderPackSections(); return; }
     if(isCustom){
-      (state.customItems[sec.id]||[]).forEach(function(x){ if(x.n === oldName) x.n = newName; });
+      (state.customItems[sec.id]||[]).forEach(function(x){ if(x.n===oldName) x.n=newName; });
     } else {
-      sec.items.forEach(function(x){ if(x.n === oldName) x.n = newName; });
+      sec.items.forEach(function(x){ if(x.n===oldName) x.n=newName; });
     }
-    var ok = sec.id + '::' + oldName, nk = sec.id + '::' + newName;
-    if(state.checkedItems[ok]){ state.checkedItems[nk] = true; delete state.checkedItems[ok]; }
-    if(state.itemBags[ok]){ state.itemBags[nk] = state.itemBags[ok]; delete state.itemBags[ok]; }
+    var ok=sec.id+'::'+oldName, nk=sec.id+'::'+newName;
+    if(state.checkedItems[ok]){ state.checkedItems[nk]=true; delete state.checkedItems[ok]; }
+    if(state.itemBags[ok]){ state.itemBags[nk]=state.itemBags[ok]; delete state.itemBags[ok]; }
     saveState();
     renderPackSections();
     if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
@@ -1640,16 +1304,16 @@ function startEdit(nameDiv, sec, item, isCustom){
 function renderPackSections(){
   var container = document.getElementById('pack-sections');
   container.innerHTML = '';
-  var total = 0, done = 0;
+  var total=0, done=0;
 
   state.trip.sections.forEach(function(sec){
-    var items = sec.items.filter(function(i){ return !i.act || state.activeActivities[i.act]; });
-    var customs = state.customItems[sec.id] || [];
+    var items = sec.items.filter(function(i){ return !i.act||state.activeActivities[i.act]; });
+    var customs = state.customItems[sec.id]||[];
     var all = items.concat(customs);
-    if(all.length === 0) return;
+    if(all.length===0) return;
 
-    var secDone = all.filter(function(i){ return state.checkedItems[sec.id + '::' + i.n]; }).length;
-    total += all.length; done += secDone;
+    var secDone = all.filter(function(i){ return state.checkedItems[sec.id+'::'+i.n]; }).length;
+    total+=all.length; done+=secDone;
     var collapsed = !!state.collapsedSections[sec.id];
 
     var secEl = document.createElement('div');
@@ -1657,91 +1321,93 @@ function renderPackSections(){
 
     var hdr = document.createElement('div');
     hdr.className = 'sec-hdr';
-    hdr.innerHTML = '<div class="sec-hdr-left"><span class="sec-icon">' + sec.icon + '</span><span class="sec-name">' + sec.label + '</span><span class="sec-count">' + secDone + '/' + all.length + '</span></div><span class="sec-chevron' + (collapsed ? '' : ' open') + '">&#9658;</span>';
-    hdr.addEventListener('click', function(){ state.collapsedSections[sec.id] = !collapsed; saveState(); renderPackSections(); });
+    hdr.innerHTML =
+      '<div class="sec-hdr-left">' +
+        '<span class="sec-icon">'+sec.icon+'</span>' +
+        '<span class="sec-name">'+sec.label+'</span>' +
+        '<span class="sec-count">'+secDone+'/'+all.length+'</span>' +
+      '</div>' +
+      '<span class="sec-chevron'+(collapsed?'':' open')+'">&#9658;</span>';
+    hdr.addEventListener('click', function(){
+      state.collapsedSections[sec.id] = !collapsed;
+      saveState();
+      renderPackSections();
+    });
 
     var body = document.createElement('div');
     body.className = 'sec-body';
     body.style.display = collapsed ? 'none' : 'flex';
 
     all.forEach(function(item, idx){
-      var key = sec.id + '::' + item.n;
+      var key = sec.id+'::'+item.n;
       var isDone = !!state.checkedItems[key];
       var isCustom = !!item.custom;
-      var bag = state.itemBags[key] || 'none';
+      var bag = state.itemBags[key]||'none';
 
       var el = document.createElement('div');
-      el.className = 'pack-item' + (isDone ? ' done' : '') + (isCustom ? ' is-custom' : '');
-      el.style.animationDelay = (idx * 0.025) + 's';
+      el.className = 'pack-item'+(isDone?' done':'')+(isCustom?' is-custom':'');
+      el.style.animationDelay = (idx*0.025)+'s';
       el.innerHTML =
         '<div class="check-box"><span class="check-inner">&#10003;</span></div>' +
         '<div class="pack-content">' +
-          '<div class="pack-name">' + item.n + '</div>' +
-          (item.note ? '<div class="pack-note">' + item.note + '</div>' : '') +
+          '<div class="pack-name">'+item.n+'</div>' +
+          (item.note ? '<div class="pack-note">'+item.note+'</div>' : '') +
         '</div>' +
         '<div class="bag-checks">' +
-          '<button class="bag-chk' + (bag==='checked'?' on-checked':'') + '" data-bag="checked" title="Checked bag">&#10003;</button>' +
-          '<button class="bag-chk' + (bag==='carry'?' on-carry':'') + '" data-bag="carry" title="Carry-on">&#10003;</button>' +
-          '<button class="bag-chk' + (bag==='personal'?' on-personal':'') + '" data-bag="personal" title="Personal item">&#10003;</button>' +
+          '<button class="bag-chk'+(bag==='checked'?' on-checked':'')+'" data-bag="checked" title="Checked bag">&#10003;</button>' +
+          '<button class="bag-chk'+(bag==='carry'?' on-carry':'')+'" data-bag="carry" title="Carry-on">&#10003;</button>' +
+          '<button class="bag-chk'+(bag==='personal'?' on-personal':'')+'" data-bag="personal" title="Personal">&#10003;</button>' +
         '</div>' +
-        '<button class="edit-btn" title="Edit name">&#9998;</button>' +
+        '<button class="edit-btn">&#9998;</button>' +
         '<button class="del-btn" title="Remove">&#215;</button>';
 
-      // Tick packed
       (function(k){
         el.querySelector('.check-box').addEventListener('click', function(e){
           e.stopPropagation();
           state.checkedItems[k] = !state.checkedItems[k];
-          saveState();
-          renderPackSections();
+          saveState(); renderPackSections();
         });
       })(key);
 
-      // Bag assignment checkmarks
       (function(k){
         el.querySelectorAll('.bag-chk').forEach(function(btn){
           btn.addEventListener('click', function(e){
             e.stopPropagation();
-            var b = btn.dataset.bag;
-            state.itemBags[k] = (state.itemBags[k] === b) ? 'none' : b;
-            saveState();
-            renderPackSections();
+            var b=btn.dataset.bag;
+            state.itemBags[k] = (state.itemBags[k]===b)?'none':b;
+            saveState(); renderPackSections();
             if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
           });
         });
       })(key);
 
-      // Edit name — clicking the name text OR the pencil button opens inline edit
-      (function(s, it, iC){
+      (function(s,it,iC){
         function triggerEdit(e){
           e.stopPropagation();
-          // Don't open edit if the item is already in edit mode
-          var existing = el.querySelector('.pack-name-input');
-          if(existing){ existing.focus(); return; }
-          startEdit(el.querySelector('.pack-name'), s, it, iC);
+          var ex=el.querySelector('.pack-name-input');
+          if(ex){ ex.focus(); return; }
+          startEdit(el.querySelector('.pack-name'),s,it,iC);
         }
         el.querySelector('.pack-name').addEventListener('click', triggerEdit);
         el.querySelector('.edit-btn').addEventListener('click', triggerEdit);
-      })(sec, item, isCustom);
+      })(sec,item,isCustom);
 
-      // Delete
-      (function(sid, iname, iC){
+      (function(sid,iname,iC){
         el.querySelector('.del-btn').addEventListener('click', function(e){
           e.stopPropagation();
           if(iC){
-            state.customItems[sid] = (state.customItems[sid]||[]).filter(function(x){ return x.n !== iname; });
+            state.customItems[sid]=(state.customItems[sid]||[]).filter(function(x){ return x.n!==iname; });
           } else {
-            var s = state.trip.sections.find(function(s){ return s.id === sid; });
-            if(s) s.items = s.items.filter(function(x){ return x.n !== iname; });
+            var s=state.trip.sections.find(function(s){ return s.id===sid; });
+            if(s) s.items=s.items.filter(function(x){ return x.n!==iname; });
           }
-          var k = sid + '::' + iname;
+          var k=sid+'::'+iname;
           delete state.checkedItems[k]; delete state.itemBags[k];
-          saveState();
-          renderPackSections();
+          saveState(); renderPackSections();
           if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
           showToast('Item removed');
         });
-      })(sec.id, item.n, isCustom);
+      })(sec.id,item.n,isCustom);
 
       body.appendChild(el);
     });
@@ -1751,15 +1417,15 @@ function renderPackSections(){
   });
 
   document.getElementById('cnt-total').textContent = total;
-  document.getElementById('cnt-done').textContent = done;
-  document.getElementById('pbar-fill').style.width = (total > 0 ? Math.round(done/total*100) : 0) + '%';
+  document.getElementById('cnt-done').textContent  = done;
+  document.getElementById('pbar-fill').style.width = (total>0 ? Math.round(done/total*100) : 0)+'%';
 }
 
 function renderSkip(){
   var el = document.getElementById('skip-section');
   el.innerHTML = '<div class="skip-title">&#128683; Leave these at home</div>' +
     (state.trip.skip||[]).map(function(s){
-      return '<div class="skip-row"><span class="skip-x">&#10005;</span><span class="skip-txt"><strong>' + s.name + '</strong> &#8212; ' + s.reason + '</span></div>';
+      return '<div class="skip-row"><span class="skip-x">&#10005;</span><span class="skip-txt"><strong>'+s.name+'</strong> &#8212; '+s.reason+'</span></div>';
     }).join('');
 }
 
@@ -1767,42 +1433,37 @@ function renderSkip(){
    ADD ITEM
 ====================================================== */
 document.getElementById('add-go-btn').addEventListener('click', addPackItem);
-document.getElementById('add-input').addEventListener('keydown', function(e){ if(e.key === 'Enter') addPackItem(); });
+document.getElementById('add-input').addEventListener('keydown', function(e){ if(e.key==='Enter') addPackItem(); });
 
-function addOneItem(name, secId){
+function addOneItem(name,secId){
   if(!name) return false;
-  if(!state.customItems[secId]) state.customItems[secId] = [];
-  var sec = state.trip.sections.find(function(s){ return s.id === secId; });
-  var exists = (state.customItems[secId]||[]).some(function(i){ return i.n.toLowerCase() === name.toLowerCase(); }) ||
-    (sec && sec.items.some(function(i){ return i.n.toLowerCase() === name.toLowerCase(); }));
+  if(!state.customItems[secId]) state.customItems[secId]=[];
+  var sec=state.trip.sections.find(function(s){ return s.id===secId; });
+  var exists=(state.customItems[secId]||[]).some(function(i){ return i.n.toLowerCase()===name.toLowerCase(); })||
+    (sec&&sec.items.some(function(i){ return i.n.toLowerCase()===name.toLowerCase(); }));
   if(exists) return false;
-  state.customItems[secId].push({n:name, note:'', p:'med', custom:true});
-  state.collapsedSections[secId] = false;
+  state.customItems[secId].push({n:name,note:'',p:'med',custom:true});
+  state.collapsedSections[secId]=false;
   return true;
 }
 
 function addPackItem(){
-  var input = document.getElementById('add-input');
-  var sel   = document.getElementById('add-section-sel');
-  var raw   = input.value;
+  var input=document.getElementById('add-input');
+  var sel=document.getElementById('add-section-sel');
+  var raw=input.value;
   if(!raw.trim()){ input.focus(); return; }
-  var secId = sel.value;
-  // Multi-line paste: split on newlines and/or commas at line start
-  var lines = raw.split(/[\n\r]+/).map(function(l){ return l.trim(); }).filter(Boolean);
-  if(lines.length > 1){
-    var added = 0;
-    lines.forEach(function(line){ if(addOneItem(line, secId)) added++; });
-    input.value = '';
-    saveState();
-    renderPackSections();
+  var secId=sel.value;
+  var lines = raw.replace(/\r/g,"\n").split("\n").map(function(l){ return l.trim(); }).filter(Boolean);
+  if(lines.length>1){
+    var added=0;
+    lines.forEach(function(line){ if(addOneItem(line,secId)) added++; });
+    input.value=''; saveState(); renderPackSections();
     if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
-    showToast(added + ' item' + (added !== 1 ? 's' : '') + ' added &#10003;');
+    showToast(added+' item'+(added!==1?'s':'')+' added &#10003;');
   } else {
-    var name = raw.trim();
-    if(!addOneItem(name, secId)){ showToast('Already on your list'); return; }
-    input.value = '';
-    saveState();
-    renderPackSections();
+    var name=raw.trim();
+    if(!addOneItem(name,secId)){ showToast('Already on your list'); return; }
+    input.value=''; saveState(); renderPackSections();
     if(document.getElementById('tab-bags').classList.contains('active')) renderBagView();
     showToast('Added &#10003;');
   }
@@ -1886,19 +1547,53 @@ function showToast(msg){
    INIT
 ====================================================== */
 renderHome();
+
+/* ======================================================
+   TABS & NAVIGATION
+====================================================== */
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click', function(){ switchTab(tab.dataset.tab); });
+});
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.toggle('active',t.dataset.tab===name); });
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.toggle('active',p.id==='tab-'+name); });
+  if(name==='bags') renderBagView();
+}
+
+document.getElementById('back-btn').addEventListener('click', function(){
+  document.getElementById('page-list').classList.remove('active');
+  document.getElementById('page-home').classList.add('active');
+  renderHome();  /* refresh My Trips section */
+  window.scrollTo(0,0);
+});
+
+/* ======================================================
+   TOAST
+====================================================== */
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.innerHTML=msg; t.classList.add('show');
+  clearTimeout(window._tt);
+  window._tt=setTimeout(function(){ t.classList.remove('show'); },2200);
+}
+
+/* ======================================================
+   INIT
+====================================================== */
+renderHome();
 </script>
 <script>
-// Activities disclosure toggle
-(function() {
-  var trigger = document.getElementById('activities-trigger');
-  var body    = document.getElementById('activities-body');
-  if (!trigger || !body) return;
-  trigger.addEventListener('click', function() {
-    var open = body.classList.contains('open');
-    body.classList.toggle('open', !open);
-    trigger.classList.toggle('open', !open);
+(function(){
+  var trigger=document.getElementById('activities-trigger');
+  var body=document.getElementById('activities-body');
+  if(!trigger||!body) return;
+  trigger.addEventListener('click', function(){
+    var open=body.classList.contains('open');
+    body.classList.toggle('open',!open);
+    trigger.classList.toggle('open',!open);
   });
 })();
 </script>
+
 </body>
 </html>
